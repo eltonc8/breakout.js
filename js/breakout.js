@@ -51,6 +51,19 @@ _.extend(MoveableElement.prototype, {
     }
   },
 
+  collide: function (dx, dy) {
+    // flips the direction of ball.
+    var len = Math.sqrt(dx * dx + dy * dy);
+    dx = dx / len;
+    dy = dy / len;
+
+    var dot = dx * this.dx + dy * this.dy;
+    if (dot > 0) return;
+
+    this.dx = this.dx - 2 * dx * dot;
+    this.dy = this.dy - 2 * dy * dot;
+  },
+
   move: function (time) {
     this.x += this.dx * time / 1000;
     this.y += this.dy * time / 1000;
@@ -89,7 +102,7 @@ _.extend(RectElement.prototype, {
     var dx = 0, dy = 0;
 
     if (ball.y < this.y) { dy = ball.y - this.y; }
-    else if (ball.y > this.y + this.width) { dy = ball.y - (this.y + this.height); }
+    else if (ball.y > this.y + this.height) { dy = ball.y - (this.y + this.height); }
     if (dy > ball.radius) return; // short circuit to avoid unnecessary calculations
 
     if (ball.x < this.x) { dx = ball.x - this.x; }
@@ -98,7 +111,7 @@ _.extend(RectElement.prototype, {
 
     var dd = Math.sqrt( Math.pow(dx, 2) + Math.pow(dy, 2) );
     if ( dd < ball.radius ) {
-      ball.dy = -Math.abs(ball.dy);
+      ball.collide(dx, dy);
     }
   },
 
@@ -140,7 +153,6 @@ _.extend(Paddle.prototype, {
     }
     this.dx = (this.dx > 0 ? 1 : -1) * (Math.max(0, Math.abs(this.dx) - this.dragCoefficient * time / 1000 ));
 
-    // this.x += Math.max(0, Math.min( canvas.width - this.width, this.dx * time / 1000));
     this.x += this.dx * time / 1000;
     this.x = Math.min(canvas.width - this.width, Math.max(0, this.x));
     this.checkWallCollision();
@@ -152,10 +164,8 @@ _.extend(Paddle.prototype, {
   },
 });
 
-
 var ball = Breakout.ball = new MoveableElement ({x: 20, y: 20, dx: 100, dy: 100});
 var paddle = Breakout.paddle = new Paddle ({});
-
 
 var spf = 1000/60;
 setInterval(function () {
