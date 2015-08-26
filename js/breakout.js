@@ -51,7 +51,7 @@ _.extend(MoveableElement.prototype, {
     }
   },
 
-  collide: function (dx, dy) {
+  collide: function (dx, dy, mx, my) {
     // flips the direction of ball.
     var len = Math.sqrt(dx * dx + dy * dy);
     dx = dx / len;
@@ -111,7 +111,7 @@ _.extend(RectElement.prototype, {
 
     var dd = Math.sqrt( Math.pow(dx, 2) + Math.pow(dy, 2) );
     if ( dd < ball.radius ) {
-      ball.collide(dx, dy);
+      ball.collide(dx, dy, this.dx || 0, this.dy || 0);
     }
   },
 
