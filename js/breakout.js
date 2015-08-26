@@ -47,11 +47,12 @@ _.extend(MoveableElement.prototype, {
     if (this.y - this.radius < 0) { this.dy = Math.abs(this.dy); }
     else if ( this.y > canvas.height ) {
       alert("GAME OVER");
-      document.location.reload();
+      clearInterval(Breakout.schedule);
     }
   },
 
   collide: function (dx, dy, mx, my) {
+    debugger
     // flips the direction of ball.
     var len = Math.sqrt(dx * dx + dy * dy);
     dx = dx / len;
@@ -122,7 +123,7 @@ _.extend(RectElement.prototype, {
 });
 
 Paddle = function (options) {
-  options = _.extend({x: canvas.width * 0.5, y: canvas.height * 0.9, dx: 0, width: 60, height: 5}, options);
+  options = _.extend({x: canvas.width * 0.5, y: canvas.height * 0.9, dx: 0, width: 60, height: 8}, options);
   this.initialize(options);
   this.thrust = 0;
   jQuery(document).on("keydown", this.keyDownHandler.bind(this));
@@ -166,11 +167,15 @@ _.extend(Paddle.prototype, {
 
 var ball = Breakout.ball = new MoveableElement ({x: 20, y: 20, dx: 100, dy: 100});
 var paddle = Breakout.paddle = new Paddle ({});
+var bricks = [];
 
-var spf = 1000/60;
-setInterval(function () {
+
+Breakout.scheduler = function () {
   ctx.clearRect(0,0, canvas.width, canvas.height);
   ball.frame({time: spf});
   paddle.frame({time: spf});
   paddle.checkCollision(ball);
-}, spf);
+};
+
+var spf = 1000/60;
+Breakout.schedule = setInterval( Breakout.scheduler, spf);
