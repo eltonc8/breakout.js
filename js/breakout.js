@@ -1,7 +1,7 @@
 var canvas = $("#breakout")[0];
 var ctx = canvas.getContext("2d");
 
-if (typeof window.Breakout === undefined) {
+if (typeof window.Breakout === "undefined") {
   window.Breakout = {};
 }
 
@@ -9,12 +9,12 @@ if (typeof window.Breakout === undefined) {
 // for readability reasons, speed is in pixel per s, and,
 // this code will utilize time / 1000
 
-inheritance = function (childClass, parentClass) {
-  function Surrogate () {}
-  Surrogate.prototype = parentClass.prototype;
-  childClass.prototype = new Surrogate();
-  childClass.prototype.constructor = childClass;
-};
+// inheritance = function (childClass, parentClass) {
+//   function Surrogate () {}
+//   Surrogate.prototype = parentClass.prototype;
+//   childClass.prototype = new Surrogate();
+//   childClass.prototype.constructor = childClass;
+// };
 
 MoveableElement = function (options) {
   options = _.extend({x: 0, y: 0, dx: 0, dy: 0, radius: 5}, options);
@@ -39,8 +39,14 @@ _.extend(MoveableElement.prototype, {
   },
 
   handleCollision: function () {
-    if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) { this.dy = -(this.dy); }
-    if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) { this.dx = -(this.dx); }
+    if (this.x - this.radius < 0) { this.dx = Math.abs(this.dx); }
+    else if (this.x + this.radius > canvas.width) { this.dx = -Math.abs(this.dx); }
+
+    if (this.y - this.radius < 0) { this.dy = Math.abs(this.dy); }
+    else if ( this.y > canvas.height ) {
+      alert("GAME OVER");
+      document.location.reload();
+    }
   },
 
   move: function (time) {
@@ -118,13 +124,31 @@ _.extend(Paddle.prototype, {
   }
 });
 
+var ball = Breakout.ball = new MoveableElement ({x: 20, y: 20, dx: 100, dy: 100});
+var paddle = Breakout.paddle = new Paddle ({});
 
+Breakout.count = 0
 
-var ball = new MoveableElement ({x: 20, y: 20, dx: -50, dy: -50});
-var paddle = new Paddle ({});
+Breakout.handleCollision = function (ball, paddle) {
+  var dx = 0, dy = 0;
+  if (ball.x < paddle.x) { dx = ball.x - paddle.x; }
+  else if (ball.x > paddle.x + paddle.width) { dx = ball.x - (paddle.x + paddle.width); }
+
+  if (ball.y < paddle.y) { dy = ball.y - paddle.y; }
+  else if (ball.y > paddle.y + paddle.width) { dy = ball.y - (paddle.y + paddle.height); }
+
+  var dd = Math.sqrt( Math.pow(dx, 2) + Math.pow(dy, 2) );
+  Breakout.count++;
+  if (Breakout.count % 30 ==0 ) console.log(dd);
+  if ( dd < ball.radius ) {
+    ball.dy = -Math.abs(ball.dy);
+  }
+};
+
 var spf = 1000/60;
 setInterval(function () {
   ctx.clearRect(0,0, canvas.width, canvas.height);
   ball.frame({time: spf});
   paddle.frame({time: spf});
+  Breakout.handleCollision(ball, paddle);
 }, spf);
