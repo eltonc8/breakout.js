@@ -29,11 +29,11 @@
     checkCollision: function (ball) {
       var dx = 0, dy = 0;
 
-      if (ball.y < this.y) { dy = ball.y - this.y; }
+      if      (ball.y < this.y) { dy = ball.y - this.y; }
       else if (ball.y > this.y + this.height) { dy = ball.y - (this.y + this.height); }
       if (dy > ball.radius) return; // short circuit to avoid unnecessary calculations
 
-      if (ball.x < this.x) { dx = ball.x - this.x; }
+      if      (ball.x < this.x) { dx = ball.x - this.x; }
       else if (ball.x > this.x + this.width) { dx = ball.x - (this.x + this.width); }
       if (dx > ball.radius) return; // short circuit to avoid unnecessary calculations
 

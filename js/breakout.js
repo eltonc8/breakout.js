@@ -1,34 +1,66 @@
+!(function () {
+  if (typeof window.Breakout === "undefined") {
+    window.Breakout = {};
+  }
 
+  /*
+  * by default, time is measured in ms.
+  *  for readability reasons, speed is in pixel per s, and,
+  *  this code will utilize time / 1000
+  */
 
-if (typeof window.Breakout === "undefined") {
-  window.Breakout = {};
-}
+  Breakout.Game = function (options) {
+    options = _.extend({
+      paddle: new Breakout.Paddle ({}),
+      bricks: new Breakout.BrickField({col_count_null: 12, row_count_null: 4, pattern: options && options.pattern}),
+      ball: new Breakout.CircularElement ({x: 20, y: 20, dx: 100, dy: 100})
+    }, options);
+    this.paddle = options.paddle;
+    this.bricks = options.bricks;
+    this.ball = options.ball;
+    this.activate();
+  };
 
-/*
-* by default, time is measured in ms.
-*  for readability reasons, speed is in pixel per s, and,
-*  this code will utilize time / 1000
-*/
+  _.extend(Breakout.Game.prototype, {
+    runtimeOptions: {ms: 1000/60},
 
-var CircularElement = Breakout.CircularElement;
-var RectElement = Breakout.RectElement;
-var BrickField = Breakout.BrickField;
-var Paddle = Breakout.Paddle;
+    activate: function () {
+      this.scheduler = setInterval( this.frame.bind(this), this.runtimeOptions.ms);
+    },
 
-var ball = Breakout.ball = new CircularElement ({x: 20, y: 20, dx: 100, dy: 100});
-Breakout.paddle = new Paddle ({});
-Breakout.bricks = _([]);
+    draw: function () {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      this.ball.draw();
+      this.paddle.draw();
 
-new BrickField({col_count: 12, row_count: 4,});
+    },
 
-var time = {time: 1000/60};
+    removeBrick: function (brick) {
+      var idx = this.bricks.indexOf(brick);
+      if (idx >= 0) this.bricks.splice(idx, 1);
+    },
 
-Breakout.scheduler = function () {
-  ctx.clearRect(0,0, canvas.width, canvas.height);
-  Breakout.ball.frame(time);
-  Breakout.bricks.each(function (brick) {brick.frame(time);});
-  Breakout.paddle.frame(time);
-  Breakout.paddle.checkCollision(ball);
-};
+    checkCollision: function () {
+      this.paddle.checkCollision(this.ball);
+      this.walls.each( function (wall) {});
+      var removes = _([]), ball = this.ball;
+      this.bricks.each( function (brick) {
+        if (brick.checkCollision(ball)) removes.push(brick);
+      } );
+      removes.each( this.removeBrick.bind(this) );
+    },
 
-Breakout.schedule = setInterval( Breakout.scheduler, time.time);
+    frame: function () {
+      this.move();
+      this.draw();
+      this.checkCollision(this.ball);
+    },
+
+    move: function () {
+      this.ball.move(this.runtimeOptions.ms);
+      this.paddle.move(this.runtimeOptions.ms);
+    }
+
+  });
+
+})();
