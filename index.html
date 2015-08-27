@@ -13,7 +13,15 @@
     <div class="container">
       <canvas id="breakout" width="600" height="400"></canvas>
     </div>
-
+    <script>
+      var canvas = $("#breakout")[0];
+      var ctx = canvas.getContext("2d");
+    </script>
+    <script src="js/breakout_utils.js"></script>
+    <script src="js/breakout_circular_element.js"></script>
+    <script src="js/breakout_rect_element.js"></script>
+    <script src="js/breakout_paddle.js"></script>
+    <script src="js/breakout_brick.js"></script>
     <script src="js/breakout.js"></script>
 
   </body>
