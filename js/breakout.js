@@ -77,7 +77,7 @@ _.extend(MoveableElement.prototype, {
 });
 
 var RectElement = Breakout.RectElement = function (options) {
-  options = _.extend({x: 0, y: 0, dx: 0, width: 60, height: 5}, options);
+  options = _.extend({x: 0, y: 0, dx: 0, width: 60, height: 5, color: "#FFF",}, options);
   this.initialize(options);
 };
 
@@ -88,12 +88,13 @@ _.extend(RectElement.prototype, {
     this.dx = options.dx;
     this.height = options.height;
     this.width = options.width;
+    this.color = options.color;
   },
 
   draw: function () {
     ctx.beginPath();
     ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = "#00F";
+    ctx.fillStyle = this.color;
     ctx.fill();
     ctx.closePath();
   },
@@ -112,6 +113,7 @@ _.extend(RectElement.prototype, {
     var dd = Math.sqrt( Math.pow(dx, 2) + Math.pow(dy, 2) );
     if ( dd < ball.radius ) {
       ball.collide(dx, dy, this.dx || 0, this.dy || 0);
+      return true;
     }
   },
 
@@ -122,15 +124,33 @@ _.extend(RectElement.prototype, {
 });
 
 var Brick = Breakout.Brick = function (options) {
-  options = _.extend({x: canvas.width * 0.5, y: canvas.height * 0.9, dx: 0, width: 60, height: 8}, options);
+  options = _.extend({x: 0, y: 0, dx: 0, width: 100, height: 10, color: "#0F0"}, options);
   this.initialize(options);
   this.thrust = 0;
 };
 
 Breakout.setInheritance(Brick, RectElement);
 
+_.extend(Brick.prototype, {
+  frame: function (options) {
+    this.draw();
+    if (this.checkCollision(Breakout.ball)) this.remove();
+  },
+
+  remove: function () {
+    var idx = Breakout.bricks.indexOf(this);
+    if (idx >= 0) Breakout.bricks.splice(idx, 1);
+  }
+});
+
 var Paddle = Breakout.Paddle = function (options) {
-  options = _.extend({x: canvas.width * 0.5, y: canvas.height * 0.9, dx: 0, width: 60, height: 8}, options);
+  options = _.extend({
+    x: canvas.width * 0.5,
+    y: canvas.height * 0.9,
+    color: "#00F",
+    dx: 0,
+    width: 60,
+    height: 8}, options);
   this.initialize(options);
   this.thrust = 0;
   jQuery(document).on("keydown", this.keyDownHandler.bind(this));
@@ -174,32 +194,38 @@ _.extend(Paddle.prototype, {
 
 var ball = Breakout.ball = new MoveableElement ({x: 20, y: 20, dx: 100, dy: 100});
 Breakout.paddle = new Paddle ({});
-Breakout.bricks = [];
+Breakout.bricks = _([]);
 
-Breakout.BrickField = function (options) {
+var BrickField = Breakout.BrickField = function (options) {
   options = _.extend({
     wall_padding: 30,
     brick_padding: 10,
-    brick_height: 20,
     col_count: 8,
     row_count: 3,
+    height: 20,
   }, options);
-  options.width = canvas.length - (2 * options.wall_padding) - (options.col_count - 1) * brick_padding;
-  options.width = options.width / options.brick_count;
+  options.width = canvas.width - (2 * options.wall_padding) - (options.col_count - 1) * options.brick_padding;
+  options.width = options.width / options.col_count;
   var x, y;
   for (c = 0; c < options.col_count; c++) {
     for (r = 0; r < options.row_count; r++) {
-
+      options.x = options.wall_padding + c * (options.width + options.brick_padding);
+      options.y = options.wall_padding + r * (options.height + options.brick_padding);
+      Breakout.bricks.push( new Brick(options) );
     }
   }
 };
 
+new BrickField();
+
+var time = {time: 1000/60};
+
 Breakout.scheduler = function () {
   ctx.clearRect(0,0, canvas.width, canvas.height);
-  ball.frame({time: spf});
-  paddle.frame({time: spf});
-  paddle.checkCollision(ball);
+  Breakout.bricks.each(function (brick) {brick.frame(time);});
+  Breakout.ball.frame(time);
+  Breakout.paddle.frame(time);
+  Breakout.paddle.checkCollision(ball);
 };
 
-var spf = 1000/60;
-Breakout.schedule = setInterval( Breakout.scheduler, spf);
+Breakout.schedule = setInterval( Breakout.scheduler, time.time);
