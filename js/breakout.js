@@ -30,6 +30,7 @@ _.extend(MoveableElement.prototype, {
     this.dx = options.dx; //dx, dy are pixels per second
     this.dy = options.dy;
     this.radius = options.radius;
+    this.speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
   },
 
   draw: function () {
@@ -62,6 +63,14 @@ _.extend(MoveableElement.prototype, {
 
     this.dx = this.dx - 2 * dx * dot;
     this.dy = this.dy - 2 * dy * dot;
+
+    if (mx || my) {
+      this.dx += mx * 0.2;
+      this.dy += my * 0.2;
+      var factor = this.speed / Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+      this.dx = this.dx * factor;
+      this.dy = this.dy * factor;
+    }
   },
 
   move: function (time) {
@@ -199,10 +208,10 @@ Breakout.bricks = _([]);
 var BrickField = Breakout.BrickField = function (options) {
   options = _.extend({
     wall_padding: 30,
-    brick_padding: 10,
-    col_count: 8,
-    row_count: 3,
-    height: 20,
+    brick_padding: 5,
+    col_count: 12,
+    row_count: 6,
+    height: 10,
   }, options);
   options.width = canvas.width - (2 * options.wall_padding) - (options.col_count - 1) * options.brick_padding;
   options.width = options.width / options.col_count;
