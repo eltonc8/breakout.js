@@ -18,7 +18,7 @@ Breakout.setInheritance = function (childClass, parentClass) {
   childClass.prototype.constructor = childClass;
 };
 
-MoveableElement = function (options) {
+var MoveableElement = Breakout.MoveableElement = function (options) {
   options = _.extend({x: 0, y: 0, dx: 0, dy: 0, radius: 5}, options);
   this.initialize(options);
 };
@@ -52,11 +52,10 @@ _.extend(MoveableElement.prototype, {
   },
 
   collide: function (dx, dy, mx, my) {
-    debugger
     // flips the direction of ball.
     var len = Math.sqrt(dx * dx + dy * dy);
-    dx = dx / len;
-    dy = dy / len;
+    dx = dx / len || 0;
+    dy = dy / len || 0;
 
     var dot = dx * this.dx + dy * this.dy;
     if (dot > 0) return;
@@ -77,7 +76,7 @@ _.extend(MoveableElement.prototype, {
   }
 });
 
-RectElement = function (options) {
+var RectElement = Breakout.RectElement = function (options) {
   options = _.extend({x: 0, y: 0, dx: 0, width: 60, height: 5}, options);
   this.initialize(options);
 };
@@ -122,7 +121,15 @@ _.extend(RectElement.prototype, {
   }
 });
 
-Paddle = function (options) {
+var Brick = Breakout.Brick = function (options) {
+  options = _.extend({x: canvas.width * 0.5, y: canvas.height * 0.9, dx: 0, width: 60, height: 8}, options);
+  this.initialize(options);
+  this.thrust = 0;
+};
+
+Breakout.setInheritance(Brick, RectElement);
+
+var Paddle = Breakout.Paddle = function (options) {
   options = _.extend({x: canvas.width * 0.5, y: canvas.height * 0.9, dx: 0, width: 60, height: 8}, options);
   this.initialize(options);
   this.thrust = 0;
@@ -144,9 +151,9 @@ _.extend(Paddle.prototype, {
     this.thrust = 0;
   },
 
-  maxSpeed:            200000, //pixels / second: 200
-  thrustCoefficient:   200000 / 200, //m / s / s
-  dragCoefficient:     200000 / 1000, //m / s / s
+  maxSpeed:            150000, //pixels / second: 200
+  thrustCoefficient:   200000 / 100, //m / s / s
+  dragCoefficient:     200000 / 250, //m / s / s
 
   move: function (time) {
     if (this.thrust && Math.abs(this.dx) < this.maxSpeed) {
@@ -166,9 +173,26 @@ _.extend(Paddle.prototype, {
 });
 
 var ball = Breakout.ball = new MoveableElement ({x: 20, y: 20, dx: 100, dy: 100});
-var paddle = Breakout.paddle = new Paddle ({});
-var bricks = [];
+Breakout.paddle = new Paddle ({});
+Breakout.bricks = [];
 
+Breakout.BrickField = function (options) {
+  options = _.extend({
+    wall_padding: 30,
+    brick_padding: 10,
+    brick_height: 20,
+    col_count: 8,
+    row_count: 3,
+  }, options);
+  options.width = canvas.length - (2 * options.wall_padding) - (options.col_count - 1) * brick_padding;
+  options.width = options.width / options.brick_count;
+  var x, y;
+  for (c = 0; c < options.col_count; c++) {
+    for (r = 0; r < options.row_count; r++) {
+
+    }
+  }
+};
 
 Breakout.scheduler = function () {
   ctx.clearRect(0,0, canvas.width, canvas.height);
