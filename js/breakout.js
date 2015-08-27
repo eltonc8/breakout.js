@@ -13,12 +13,14 @@
     options = _.extend({
       paddle: new Breakout.Paddle ({}),
       bricks: new Breakout.BrickField({col_count_null: 12, row_count_null: 4, pattern: options && options.pattern}),
-      ball: new Breakout.CircularElement ({x: 20, y: 20, dx: 100, dy: 100})
+      ball: new Breakout.CircularElement ({x: 20, y: 20, dx: 100, dy: 100}),
+      score: 0,
     }, options);
     this.paddle = options.paddle;
     this.bricks = options.bricks;
     this.ball = options.ball;
     this.activate();
+    this.score = options.score;
   };
 
   _.extend(Breakout.Game.prototype, {
@@ -32,7 +34,15 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.ball.draw();
       this.paddle.draw();
+      this.bricks.each( function (brick) { brick.draw(); } );
 
+      this.drawScore();
+    },
+
+    drawScore: function () {
+      ctx.font = "16px Arial";
+      ctx.fillStyle = "#FF0";
+      ctx.fillText("Score: "+ this.score, 8, 20);
     },
 
     removeBrick: function (brick) {
@@ -42,11 +52,12 @@
 
     checkCollision: function () {
       this.paddle.checkCollision(this.ball);
-      this.walls.each( function (wall) {});
       var removes = _([]), ball = this.ball;
       this.bricks.each( function (brick) {
         if (brick.checkCollision(ball)) removes.push(brick);
       } );
+
+      this.score += removes.size();
       removes.each( this.removeBrick.bind(this) );
     },
 
