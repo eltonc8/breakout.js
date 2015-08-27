@@ -39,7 +39,7 @@
 
       var dd = Math.sqrt( Math.pow(dx, 2) + Math.pow(dy, 2) );
       if ( dd < ball.radius ) {
-        ball.collide(dx, dy, this.dx || 0, this.dy || 0);
+        ball.collide(dx, dy, this.dx || 0, this.dy || (!dx && !dy && -10) || 0 );
         return true;
       }
     },

@@ -6,17 +6,19 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/underscore.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" media="all" href="css/breakout.css">
   </head>
   <body>
+    <div class="buttons">
+      <div class="new-game">
+        New Game
+      </div>
+    </div>
 
     <div class="container">
       <canvas id="breakout" width="600" height="400"></canvas>
     </div>
-    <script>
-      var canvas = $("#breakout")[0];
-      var ctx = canvas.getContext("2d");
-    </script>
     <script src="js/breakout_utils.js"></script>
     <script src="js/breakout_circular_element.js"></script>
     <script src="js/breakout_rect_element.js"></script>
@@ -24,7 +26,11 @@
     <script src="js/breakout_brick.js"></script>
     <script src="js/breakout.js"></script>
     <script>
-      new Breakout.Game();
+      $(function () {
+        var canvas = $("#breakout")[0];
+        var ctx = canvas.getContext("2d");
+        new Breakout.Game();
+      });
     </script>
   </body>
 </html>

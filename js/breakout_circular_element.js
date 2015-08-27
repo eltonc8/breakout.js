@@ -54,10 +54,11 @@
       if (mx || my) {
         this.dx += mx * 0.2;
         this.dy += my * 0.2;
-        var factor = this.speed / Math.sqrt(this.dx * this.dx + this.dy * this.dy);
-        this.dx = this.dx * factor;
-        this.dy = this.dy * factor;
       }
+
+      var factor = this.speed / Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+      this.dx = this.dx * factor;
+      this.dy = this.dy * factor;
     },
 
     move: function (time) {
