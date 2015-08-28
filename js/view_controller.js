@@ -17,10 +17,20 @@
 
     pauseToggle: function (event) {
       if ($(".pause-toggle").html().match("Pause")) {
-        $(".pause-toggle").html("Restart");
+        $(".pause-toggle").html("Resume");
         this.game.deactivate();
       } else {
         $(".pause-toggle").html("Pause");
+        this.game.activate();
+      }
+    },
+
+    powerupToggle: function (event) {
+      if ($(".power-up-toggle").html().match("Include Power-Ups!")) {
+        $(".power-up-toggle").html("Play class!");
+        this.game.deactivate();
+      } else {
+        $(".power-up-toggle").html("Include Power-Ups!");
         this.game.activate();
       }
     },

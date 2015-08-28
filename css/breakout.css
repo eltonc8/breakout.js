@@ -86,15 +86,8 @@ canvas {
 
 .pause-toggle {
   background: #CC0;
-  border-top-color: #DD1;
-  border-right-color: #DD1;
-  border-bottom-color: #BB0;
-  border-left-color: #BB0;
 }
 
-.pause-toggle:hover {
-  border-top-color: #BB0;
-  border-right-color: #BB0;
-  border-bottom-color: #DD1;
-  border-left-color: #DD1;
+.power-up-toggle {
+  background: #AAF;
 }
