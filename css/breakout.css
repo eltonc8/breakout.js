@@ -28,7 +28,21 @@ canvas {
   margin: auto auto;
 }
 
+.title {
+  font-size: 3em;
+  width: 100%;
+}
+
+.clear::after {
+  content: " ";
+  clear: right;
+  position: relative;
+  display: block;
+  float: left;
+}
+
 .buttons {
+  cursor: pointer;
   display: block;
   float: right;
   margin: 1em;
@@ -39,25 +53,47 @@ canvas {
   display: inline-block;
 }
 
+.buttons {
+  width: 12em;
+}
+
 .buttons > * {
+  width: 100%;
+  margin: 0.25em;
   font-size: 1rem;
   color: #FFF;
   padding: 0.5em;
-  background: #395;
   display: block;
   float: left;
   border: 0.5em;
   border-style: solid;
+}
+
+.new-game {
+  background: #395;
   border-top-color: #4A6;
   border-right-color: #4A6;
   border-bottom-color: #284;
   border-left-color: #284;
 }
 
-.buttons *:hover {
-  /*background: #5B7;*/
+.new-game:hover {
   border-top-color: #284;
   border-right-color: #284;
   border-bottom-color: #4A6;
   border-left-color: #4A6;
+}
+.pause-toggle {
+  background: #CC0;
+  border-top-color: #DD1;
+  border-right-color: #DD1;
+  border-bottom-color: #BB0;
+  border-left-color: #BB0;
+}
+
+.pause-toggle:hover {
+  border-top-color: #BB0;
+  border-right-color: #BB0;
+  border-bottom-color: #DD1;
+  border-left-color: #DD1;
 }

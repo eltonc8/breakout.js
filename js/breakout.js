@@ -77,7 +77,5 @@
       this.ball.move(this.runtimeOptions.ms);
       this.paddle.move(this.runtimeOptions.ms);
     }
-
   });
-
 })();

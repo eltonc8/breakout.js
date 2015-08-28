@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>BreakOut</title>
+<head>
+  <meta charset="utf-8">
+  <title>BreakOut</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/underscore.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" media="all" href="css/breakout.css">
-  </head>
-  <body>
-    <div class="container">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="js/underscore.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" media="all" href="css/breakout.css">
+</head>
+<body>
+  <div class="title">
+    Breakout!
+  </div>
+  <div class="container">
+    <canvas id="breakout" width="600" height="400"></canvas>
+  </div>
+  <div class="container">
     <div class="buttons">
-      <div class="new-game">
-        New Game
-      </div>
+      <div class="new-game">New Game</div>
+      <div class="pause-toggle">Pause</div>
     </div>
-
-      <canvas id="breakout" width="600" height="400"></canvas>
-    </div>
-    <script src="js/breakout_utils.js"></script>
-    <script src="js/breakout_circular_element.js"></script>
-    <script src="js/breakout_rect_element.js"></script>
-    <script src="js/breakout_paddle.js"></script>
-    <script src="js/breakout_brick.js"></script>
-    <script src="js/breakout.js"></script>
-    <script src="js/view_controller.js"></script>
-    <script>
-      $(function () {
-        window.canvas = $("#breakout")[0];
-        window.ctx = canvas.getContext("2d");
-        // window.game = new Breakout.Game();
-        window.view = new Breakout.View();
-      });
-    </script>
-  </body>
+  </div>
+  <script src="js/breakout_utils.js"></script>
+  <script src="js/breakout_circular_element.js"></script>
+  <script src="js/breakout_rect_element.js"></script>
+  <script src="js/breakout_paddle.js"></script>
+  <script src="js/breakout_brick.js"></script>
+  <script src="js/breakout.js"></script>
+  <script src="js/view_controller.js"></script>
+  <script>
+  $(function () {
+    window.canvas = $("#breakout")[0];
+    window.ctx = canvas.getContext("2d");
+    window.view = new Breakout.View();
+  });
+  </script>
+</body>
 </html>
