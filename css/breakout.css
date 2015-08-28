@@ -6,7 +6,6 @@
 
 body {
   text-align: center;
-  padding: 2em;
   background-image: url(http://res.cloudinary.com/dwlxp9sf7/image/upload/c_scale,w_1500/v1440714233/brick_texture3355_uqdgn2.jpg);
   background-size: cover;
 }
@@ -29,16 +28,10 @@ canvas {
 }
 
 .title {
-  font-size: 3em;
-  width: 100%;
-}
-
-.clear::after {
-  content: " ";
-  clear: right;
   position: relative;
-  display: block;
-  float: left;
+  width: 100%;
+  font-size: 3em;
+  background-color: red;
 }
 
 .buttons {
@@ -46,6 +39,11 @@ canvas {
   display: block;
   float: right;
   margin: 1em;
+}
+
+.content {
+  margin-top: 2em;
+  padding: 2em;
 }
 
 .container {
@@ -65,24 +63,27 @@ canvas {
   padding: 0.5em;
   display: block;
   float: left;
-  border: 0.5em;
-  border-style: solid;
+  radius: 0.25em;
+  box-shadow:
+    0 4px 0 #000;
+}
+
+.buttons > *:hover {
+  position:relative;
+  top: 2px;
+  box-shadow: 0 2px 0 #000,
+}
+
+.buttons > *:active {
+  position:relative;
+  top: 4px;
+  box-shadow: 0 0px 0 #000,
 }
 
 .new-game {
   background: #395;
-  border-top-color: #4A6;
-  border-right-color: #4A6;
-  border-bottom-color: #284;
-  border-left-color: #284;
 }
 
-.new-game:hover {
-  border-top-color: #284;
-  border-right-color: #284;
-  border-bottom-color: #4A6;
-  border-left-color: #4A6;
-}
 .pause-toggle {
   background: #CC0;
   border-top-color: #DD1;

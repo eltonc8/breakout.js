@@ -31,10 +31,6 @@
       else if (this.x + this.radius > canvas.width) { this.dx = -Math.abs(this.dx); }
 
       if (this.y - this.radius < 0) { this.dy = Math.abs(this.dy); }
-      else if ( this.y > canvas.height ) {
-        alert("GAME OVER");
-        clearInterval(Breakout.schedule);
-      }
     },
 
     collide: function (dx, dy, mx, my) {
