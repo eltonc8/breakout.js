@@ -13,12 +13,12 @@
     options = _.extend({
       paddle: new Breakout.Paddle ({}),
       bricks: new Breakout.BrickField({col_count_null: 12, row_count_null: 4, pattern: options && options.pattern}),
-      ball: new Breakout.CircularElement ({x: 20, y: 20, dx: 100, dy: 100}),
+      balls: _([new Breakout.CircularElement ({x: 20, y: 20, dx: 100, dy: 100})]),
       score: 0,
     }, options);
     this.paddle = options.paddle;
     this.bricks = options.bricks;
-    this.ball = options.ball;
+    this.balls = options.balls;
     this.activate();
     this.score = options.score;
   };
@@ -31,6 +31,10 @@
       this.scheduler = setInterval( this.frame.bind(this), this.runtimeOptions.ms);
     },
 
+    allObjects: function () {
+      return _(this.bricks.concat(this.balls.flatten()).concat(this.paddle) );
+    },
+
     deactivate: function () {
       clearInterval(this.scheduler);
       this.scheduler = null;
@@ -38,9 +42,7 @@
 
     draw: function () {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      this.ball.draw();
-      this.paddle.draw();
-      this.bricks.each( function (brick) { brick.draw(); } );
+      this.allObjects().each( function (brick) { brick.draw(); } );
 
       this.drawScore();
     },
@@ -57,25 +59,31 @@
     },
 
     checkCollision: function () {
-      this.paddle.checkCollision(this.ball);
-      var removes = _([]), ball = this.ball;
-      this.bricks.each( function (brick) {
-        if (brick.checkCollision(ball)) removes.push(brick);
-      } );
+      this.balls.each( function (ball) {
+        var removes = _([]);
+        this.paddle.checkCollision(ball);
 
+        this.bricks.each( function (brick) {
+          if (brick.checkCollision(ball)) removes.push(brick);
+        }.bind(this) );
       this.score += removes.size();
       removes.each( this.removeBrick.bind(this) );
+    }.bind(this));
+
     },
 
     frame: function () {
       this.move();
       this.draw();
-      this.checkCollision(this.ball);
+      this.checkCollision();
     },
 
     move: function () {
-      this.ball.move(this.runtimeOptions.ms);
-      this.paddle.move(this.runtimeOptions.ms);
+      var runtimeOptions = this.runtimeOptions;
+      this.allObjects().each( function (obj) {
+        if (typeof obj.move !== "function") {debugger}
+        obj.move(runtimeOptions.ms);
+      });
     }
   });
 })();

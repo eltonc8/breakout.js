@@ -27,10 +27,23 @@
     },
 
     checkWallCollision: function () {
-      if (this.x - this.radius < 0) { this.dx = Math.abs(this.dx); }
+      if      (this.x - this.radius < 0) { this.dx = Math.abs(this.dx); }
       else if (this.x + this.radius > canvas.width) { this.dx = -Math.abs(this.dx); }
 
       if (this.y - this.radius < 0) { this.dy = Math.abs(this.dy); }
+    },
+
+    checkCollision: function (ball) {
+      if (ball === this) return;
+
+      var dx = ball.x - this.x, dy = ball.y - this.y, radii = ball.radius + this.radius;
+      if (dx > radii || dy > radii) return; // short circuit to avoid unnecessary calculations
+
+      var dd = Math.sqrt( dx * dx + dy * dy );
+      if ( dd < ball.radius ) {
+        ball.collide(dx, dy, this.dx || 0, this.dy || (!dx && !dy && -10) || 0 );
+        return true;
+      }
     },
 
     collide: function (dx, dy, mx, my) {

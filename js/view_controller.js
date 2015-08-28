@@ -6,6 +6,7 @@
   Breakout.View = function () {
     $(".new-game").on("click", this.newGame.bind(this));
     $(".pause-toggle").on("click", this.pauseToggle.bind(this));
+    $(".power-up-toggle").on("click", this.powerUpToggle.bind(this));
     this.newGame();
   };
 
@@ -25,9 +26,9 @@
       }
     },
 
-    powerupToggle: function (event) {
+    powerUpToggle: function (event) {
       if ($(".power-up-toggle").html().match("Include Power-Ups!")) {
-        $(".power-up-toggle").html("Play class!");
+        $(".power-up-toggle").html("Play simple!");
         this.game.deactivate();
       } else {
         $(".power-up-toggle").html("Include Power-Ups!");

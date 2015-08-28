@@ -18,14 +18,6 @@
       this.color = options.color;
     },
 
-    draw: function () {
-      ctx.beginPath();
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.fillStyle = this.color;
-      ctx.fill();
-      ctx.closePath();
-    },
-
     checkCollision: function (ball) {
       var dx = 0, dy = 0;
 
@@ -37,16 +29,26 @@
       else if (ball.x > this.x + this.width) { dx = ball.x - (this.x + this.width); }
       if (dx > ball.radius) return; // short circuit to avoid unnecessary calculations
 
-      var dd = Math.sqrt( Math.pow(dx, 2) + Math.pow(dy, 2) );
+      var dd = Math.sqrt( dx * dx + dy * dy );
       if ( dd < ball.radius ) {
         ball.collide(dx, dy, this.dx || 0, this.dy || (!dx && !dy && -10) || 0 );
         return true;
       }
     },
 
+    draw: function () {
+      ctx.beginPath();
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.closePath();
+    },
+
     frame: function (options) {
       this.draw();
       this.move( (options && options.time) || 50 );
-    }
+    },
+
+    move: function () {}
   });
 })();
