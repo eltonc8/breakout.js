@@ -47,12 +47,17 @@
     },
 
     collide: function (dx, dy, mx, my) {
-      //dx, dy are difference to closest surface, vector (normal)
-      //mx, my are momentum vectors
+      //dx, dy are difference to closest surface, vector component (normal)
+      //mx, my are momentum vector components
       // flips the direction of ball.
       var len = Math.sqrt(dx * dx + dy * dy);
       dx = dx / len || 0;
       dy = dy / len || 0;
+
+      debugger
+
+      this.x += dx * (this.radius - len)
+      this.y += dy * (this.radius - len)
 
       var dot = dx * this.dx + dy * this.dy;
       if (dot > 0) return;
@@ -61,6 +66,7 @@
       this.dy = this.dy - 2 * dy * dot;
 
       if (mx || my) {
+        // this imparts momentum. "friction"
         this.dx += mx * 0.2;
         this.dy += my * 0.2;
       }

@@ -16,6 +16,7 @@
       balls: _([new Breakout.CircularElement ({x: 20, y: 20, dx: 100, dy: 100})]),
       score: 0,
     }, options);
+
     this.paddle = options.paddle;
     this.bricks = options.bricks;
     this.balls = options.balls;
@@ -24,7 +25,11 @@
   };
 
   _.extend(Breakout.Game.prototype, {
-    runtimeOptions: {ms: 1000/60},
+    runtimeOptions: {
+      ms: 1000/180,
+      render: 0,
+      renderRatio: 3,
+    },
 
     activate: function () {
       if (this.scheduler) return;
@@ -41,6 +46,8 @@
     },
 
     draw: function () {
+      this.runtimeOptions.render = (this.runtimeOptions.render + 1) % this.runtimeOptions.renderRatio;
+      if (this.runtimeOptions.render) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.allObjects().each( function (brick) { brick.draw(); } );
 
