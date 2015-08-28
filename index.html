@@ -10,13 +10,13 @@
     <link rel="stylesheet" media="all" href="css/breakout.css">
   </head>
   <body>
+    <div class="container">
     <div class="buttons">
       <div class="new-game">
         New Game
       </div>
     </div>
 
-    <div class="container">
       <canvas id="breakout" width="600" height="400"></canvas>
     </div>
     <script src="js/breakout_utils.js"></script>
@@ -25,11 +25,13 @@
     <script src="js/breakout_paddle.js"></script>
     <script src="js/breakout_brick.js"></script>
     <script src="js/breakout.js"></script>
+    <script src="js/view_controller.js"></script>
     <script>
       $(function () {
-        var canvas = $("#breakout")[0];
-        var ctx = canvas.getContext("2d");
-        new Breakout.Game();
+        window.canvas = $("#breakout")[0];
+        window.ctx = canvas.getContext("2d");
+        // window.game = new Breakout.Game();
+        window.view = new Breakout.View();
       });
     </script>
   </body>

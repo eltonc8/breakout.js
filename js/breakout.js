@@ -3,7 +3,7 @@
     window.Breakout = {};
   }
 
-  /*
+ /*
   * by default, time is measured in ms.
   *  for readability reasons, speed is in pixel per s, and,
   *  this code will utilize time / 1000
@@ -27,7 +27,13 @@
     runtimeOptions: {ms: 1000/60},
 
     activate: function () {
+      if (this.scheduler) return;
       this.scheduler = setInterval( this.frame.bind(this), this.runtimeOptions.ms);
+    },
+
+    deactivate: function () {
+      clearInterval(this.scheduler);
+      this.scheduler = null;
     },
 
     draw: function () {

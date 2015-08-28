@@ -5,6 +5,7 @@
 }
 
 body {
+  text-align: center;
   padding: 2em;
   background-image: url(http://res.cloudinary.com/dwlxp9sf7/image/upload/c_scale,w_1500/v1440714233/brick_texture3355_uqdgn2.jpg);
   background-size: cover;
@@ -27,8 +28,21 @@ canvas {
   margin: auto auto;
 }
 
-.buttons * {
-  padding: 2em;
+.buttons {
+  display: block;
+  float: right;
+  margin: 1em;
+}
+
+.container {
+  margin: auto;
+  display: inline-block;
+}
+
+.buttons > * {
+  font-size: 1rem;
+  color: #FFF;
+  padding: 0.5em;
   background: #395;
   display: block;
   float: left;
@@ -41,7 +55,7 @@ canvas {
 }
 
 .buttons *:hover {
-  background: #5B7;
+  /*background: #5B7;*/
   border-top-color: #284;
   border-right-color: #284;
   border-bottom-color: #4A6;
