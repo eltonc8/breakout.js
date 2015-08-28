@@ -12,7 +12,7 @@
   Breakout.Game = function (options) {
     options = _.extend({
       paddle: new Breakout.Paddle ({}),
-      bricks: new Breakout.BrickField({col_count_null: 12, row_count_null: 4, pattern: options && options.pattern}),
+      bricks: new Breakout.BrickField(),
       balls: _([new Breakout.CircularElement ({x: 20, y: 20, dx: 100, dy: 100})]),
       score: 0,
     }, options);

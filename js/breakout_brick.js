@@ -12,24 +12,26 @@
 
   Breakout.setInheritance(Brick, RectElement);
 
-  _.extend(Brick.prototype, {
+  _.extend(Brick.prototype, {});
 
-  });
-
-  Breakout.BrickField = function (options) {
+  BrickField = Breakout.BrickField = function (options) {
     options = _.extend({
       wall_padding: 30,
       brick_padding: 5,
       col_count: 12,
       row_count: 6,
       height: 10,
+      pattern: this.classicRainbow.bind(this),
       set: _([]),
     }, options);
-    options.width = canvas.width - (2 * options.wall_padding) - (options.col_count - 1) * options.brick_padding;
+    options.width = canvas.width - (2 * options.wall_padding)
+                    - (options.col_count - 1) * options.brick_padding;
     options.width = options.width / options.col_count;
 
     for (c = 0; c < options.col_count; c++) {
       for (r = 0; r < options.row_count; r++) {
+        if (options.pattern) options.pattern(options, r, c);
+        if (options.skip) continue;
         options.x = options.wall_padding + c * (options.width + options.brick_padding);
         options.y = options.wall_padding + r * (options.height + options.brick_padding);
         options.set.push( new Brick(options) );
@@ -38,4 +40,20 @@
 
     return options.set;
   };
+
+  _.extend(BrickField.prototype, {
+    classicRainbow: function (options, r, c) {
+      var period = 2 * Math.PI / options.row_count ;
+      var red   = 255 / 2 * (1 + Math.cos( r * period ) );
+      var green = 255 / 2 * (1 + Math.cos( r * period + Math.PI * 4 / 3) );
+      var blue  = 255 / 2 * (1 + Math.cos( r * period + Math.PI * 2 / 3) );
+      options.color = "#" + this.hex(red) + this.hex(green) + this.hex(blue);
+    },
+
+    hex: function (num) {
+      var result = "00" + Number( Math.floor(num) ).toString(16);
+      return result.slice(-2)
+    },
+
+  });
 })();
