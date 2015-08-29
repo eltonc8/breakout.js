@@ -60,6 +60,14 @@
       ctx.fillText("Score: "+ this.score, 8, 20);
     },
 
+    keyDownHandler: function (event) {
+      this.paddle.keyDownHandler(event);
+    },
+
+    keyUpHandler: function (event) {
+      this.paddle.keyUpHandler(event);
+    },
+
     removeBrick: function (brick) {
       var idx = this.bricks.indexOf(brick);
       if (idx >= 0) this.bricks.splice(idx, 1);

@@ -16,8 +16,6 @@
     }, options);
     this.initialize(options);
     this.thrust = 0;
-    jQuery(document).on("keydown", this.keyDownHandler.bind(this));
-    jQuery(document).on("keyup", this.keyUpHandler.bind(this));
   };
 
   Breakout.setInheritance(Paddle, RectElement);

@@ -54,8 +54,6 @@
       dx = dx / len || 0;
       dy = dy / len || 0;
 
-      debugger
-
       this.x += dx * (this.radius - len)
       this.y += dy * (this.radius - len)
 
