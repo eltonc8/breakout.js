@@ -31,6 +31,8 @@
       ms: 1000/180,
       render: 0,
       renderRatio: 3,
+      accel: 1,
+      difficulty: 0.9,
     },
 
     activate: function () {
@@ -117,7 +119,7 @@
     move: function () {
       var runtimeOptions = this.runtimeOptions;
       this.allObjects().each( function (obj) {
-        obj.move(runtimeOptions.ms);
+        obj.move(runtimeOptions);
       });
     }
   });

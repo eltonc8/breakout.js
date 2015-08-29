@@ -21,6 +21,7 @@
       this.dx = options.dx; //dx, dy are pixels per second
       this.dy = options.dy;
       this.radius = options.radius;
+      this.accel = -0.10;
       this.speed = options.speed || Math.sqrt(this.dx * this.dx + this.dy * this.dy);
     },
 
@@ -52,37 +53,43 @@
       }
     },
 
-    collide: function (dx, dy, mx, my) {
+    collide: function (dx, dy, mx, my, accel) {
       //dx, dy are difference to closest surface, vector component (normal)
-      //mx, my are momentum vector components
+      //mx, my are momentum vector components (for friction)
       // flips the direction of ball.
+      // 1] normalize the vector first.
       var len = Math.sqrt(dx * dx + dy * dy);
       dx = dx / len || 0;
       dy = dy / len || 0;
 
-      this.x += dx * (this.radius - len)
-      this.y += dy * (this.radius - len)
+      // 2] offset the ball's position to reduce overlap to 0. Use normal vector.
+      this.x += dx * (this.radius - len);
+      this.y += dy * (this.radius - len);
 
+      // 3] check dot product. < 0 = ball heading into object (anti parllel to normal)
       var dot = dx * this.dx + dy * this.dy;
       if (dot > 0) return;
 
+      // 4] flip this.velocity with respect to normal (myV - 2 * normalV * dot)
       this.dx = this.dx - 2 * dx * dot;
       this.dy = this.dy - 2 * dy * dot;
 
+      // 5] this imparts momentum. "friction"
       if (mx || my) {
-        // this imparts momentum. "friction"
         this.dx += mx * 0.2;
         this.dy += my * 0.2;
       }
 
+      // 6] this "normalize" the vector back to original speed.
       var factor = this.speed / Math.sqrt(this.dx * this.dx + this.dy * this.dy);
       this.dx = this.dx * factor;
       this.dy = this.dy * factor;
     },
 
-    move: function (time) {
-      this.x += this.dx * time / 1000;
-      this.y += this.dy * time / 1000;
+    move: function (runtimeOptions) {
+      unit = runtimeOptions.ms * (runtimeOptions.accel) * (runtimeOptions.difficulty) / 1000;
+      this.x += this.dx * unit;
+      this.y += this.dy * unit;
       this.checkWallCollision();
     },
 

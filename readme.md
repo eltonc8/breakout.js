@@ -1,9 +1,9 @@
-[live demo](https://rawgit.com/eltonc88/breakout.js/index.html)
-[inspiration](https://en.wikipedia.org/wiki/Breakout_(video_game))
+- [live demo](https://eltonc88.github.io/breakout.js)
+- [inspiration](https://en.wikipedia.org/wiki/Breakout_(video_game))
 
 This is an implementation of the classic Breakout game, built on Javascript, jQuery with Underscore.js library.
 
-Some hightlights:
+Some highlights:
 * Game is implemented with physics-engine.
 * Paddle has smooth acceleration and deceleration.
 * Paddle can impart momentum onto the ball based on the speed of the paddle.

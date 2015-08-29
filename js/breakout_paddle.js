@@ -36,13 +36,14 @@
     thrustCoefficient:   200000 / 100, //m / s / s
     dragCoefficient:     200000 / 250, //m / s / s
 
-    move: function (time) {
+    move: function (runtimeOptions) {
+      unit = runtimeOptions.ms * (runtimeOptions.accel) * (runtimeOptions.difficulty) / 1000;
       if (this.thrust && Math.abs(this.dx) < this.maxSpeed) {
-        this.dx += this.thrust * time / 1000 * this.thrustCoefficient;
+        this.dx += this.thrust * unit * this.thrustCoefficient;
       }
-      this.dx = (this.dx > 0 ? 1 : -1) * (Math.max(0, Math.abs(this.dx) - this.dragCoefficient * time / 1000 ));
+      this.dx = (this.dx > 0 ? 1 : -1) * (Math.max(0, Math.abs(this.dx) - this.dragCoefficient * unit ));
 
-      this.x += this.dx * time / 1000;
+      this.x += this.dx * unit;
       this.x = Math.min(canvas.width - this.width, Math.max(0, this.x));
       this.checkWallCollision();
     },
