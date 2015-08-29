@@ -43,17 +43,21 @@ canvas {
   background-image: url(http://res.cloudinary.com/dwlxp9sf7/image/upload/c_crop,g_north,h_260,w_1053/v1440828472/2601660-11002901_lfptyh.jpg);
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center;
+  background-position: top;
   background-color: rgba(128, 0, 0, 0.7);
   border-top: 0.2em solid;
   border-bottom: 0.2em solid;
   border-color: rgba(128, 0, 0, 0.2);
-  transition: height 2s, background-color 2s;
+  transition:
+    height 2s ease-in-out,
+    background-color 2s,
+    background-position 2s ease-in-out;
 }
 
 .title.initialize:after {
   height: 100vh;
   background-color: rgba(128, 0, 0, 1);
+  background-position: center;
 }
 
 .buttons {
