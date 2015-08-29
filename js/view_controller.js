@@ -18,6 +18,8 @@
     //these two key handlers exists on the top view to avoid repeated creation
     // of new key handlers in new games.
     keyDownHandler: function (event) {
+      if (event.keyCode === 78) { this.newGame(); }
+      if (event.keyCode === 80) { this.pauseToggle(); } //handles pauses
       this.game && this.game.keyDownHandler(event);
     },
 
@@ -31,11 +33,11 @@
     },
 
     pauseToggle: function (event) {
-      if ($(".pause-toggle").html().match("Pause")) {
-        $(".pause-toggle").html("Resume");
+      if ($(".pause-toggle").html() == "Pause [P]") {
+        $(".pause-toggle").html("Resume [P]");
         this.game.deactivate();
       } else {
-        $(".pause-toggle").html("Pause");
+        $(".pause-toggle").html("Pause [P]");
         this.game.activate();
       }
     },

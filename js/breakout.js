@@ -11,17 +11,19 @@
 
   Breakout.Game = function (options) {
     options = _.extend({
+      lives: 3,
       paddle: new Breakout.Paddle ({}),
       bricks: new Breakout.BrickField(),
       balls: _([new Breakout.CircularElement ({x: 20, y: 20, dx: 100, dy: 100})]),
       score: 0,
     }, options);
 
+    this.lives = options.lives;
     this.paddle = options.paddle;
     this.bricks = options.bricks;
     this.balls = options.balls;
-    this.activate();
     this.score = options.score;
+    this.activate();
   };
 
   _.extend(Breakout.Game.prototype, {
