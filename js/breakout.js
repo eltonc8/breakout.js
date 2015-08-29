@@ -3,7 +3,7 @@
     window.Breakout = {};
   }
 
- /*
+  /*
   * by default, time is measured in ms.
   *  for readability reasons, speed is in pixel per s, and,
   *  this code will utilize time / 1000
@@ -14,7 +14,7 @@
       lives: 3,
       paddle: new Breakout.Paddle ({}),
       bricks: new Breakout.BrickField(),
-      balls: _([new Breakout.CircularElement ({x: 20, y: 20, dx: 100, dy: 100})]),
+      balls: _([]),
       score: 0,
     }, options);
 
@@ -42,6 +42,22 @@
       return _(this.bricks.concat(this.balls.flatten()).concat(this.paddle) );
     },
 
+    checkGameLogics: function () {
+      var deadBalls = _(this.balls.filter( function (ball) {
+        return ball.y > canvas.height;
+      }));
+      this.removeItemsFrom(deadBalls, this.balls);
+
+      if (this.balls.size() && this.lives) {
+        return false;
+      } else if (this.lives) {
+        this.lives--;
+        this.balls.push(new Breakout.CircularElement());
+      }
+
+      return true;
+    },
+
     deactivate: function () {
       clearInterval(this.scheduler);
       this.scheduler = null;
@@ -50,16 +66,18 @@
     draw: function () {
       this.runtimeOptions.render = (this.runtimeOptions.render + 1) % this.runtimeOptions.renderRatio;
       if (this.runtimeOptions.render) return;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.allObjects().each( function (brick) { brick.draw(); } );
 
-      this.drawScore();
+      this.drawStats();
     },
 
-    drawScore: function () {
+    drawStats: function () {
       ctx.font = "16px Arial";
       ctx.fillStyle = "#FF0";
       ctx.fillText("Score: "+ this.score, 8, 20);
+      ctx.fillText("Lives: "+ this.lives, 100, 20);
     },
 
     keyDownHandler: function (event) {
@@ -70,35 +88,35 @@
       this.paddle.keyUpHandler(event);
     },
 
-    removeBrick: function (brick) {
-      var idx = this.bricks.indexOf(brick);
-      if (idx >= 0) this.bricks.splice(idx, 1);
+    removeItemsFrom: function (items, collection) {
+      items.each( function (item) {
+        var idx = collection.indexOf(item);
+        if (idx >= 0) collection.splice(idx, 1);
+      });
     },
 
     checkCollision: function () {
       this.balls.each( function (ball) {
-        var removes = _([]);
         this.paddle.checkCollision(ball);
 
-        this.bricks.each( function (brick) {
-          if (brick.checkCollision(ball)) removes.push(brick);
-        }.bind(this) );
-      this.score += removes.size();
-      removes.each( this.removeBrick.bind(this) );
-    }.bind(this));
-
+        var brokenBricks = _(this.bricks.filter( function (brick) {
+          return brick.checkCollision(ball);
+        }));
+        this.score += brokenBricks.size();
+        this.removeItemsFrom(brokenBricks, this.bricks);
+      }.bind(this));
     },
 
     frame: function () {
       this.move();
       this.draw();
       this.checkCollision();
+      this.checkGameLogics();
     },
 
     move: function () {
       var runtimeOptions = this.runtimeOptions;
       this.allObjects().each( function (obj) {
-        if (typeof obj.move !== "function") {debugger}
         obj.move(runtimeOptions.ms);
       });
     }

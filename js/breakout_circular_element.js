@@ -4,7 +4,13 @@
   }
 
   var CircularElement = Breakout.CircularElement = function (options) {
-    options = _.extend({x: 0, y: 0, dx: 0, dy: 0, radius: 5}, options);
+    options = _.extend({
+      x: canvas.width / 2,
+      y: canvas.height * 0.8,
+      dx: 141,
+      dy: 141.8,
+      radius: 5,
+    }, options);
     this.initialize(options);
   };
 
@@ -15,7 +21,7 @@
       this.dx = options.dx; //dx, dy are pixels per second
       this.dy = options.dy;
       this.radius = options.radius;
-      this.speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+      this.speed = options.speed || Math.sqrt(this.dx * this.dx + this.dy * this.dy);
     },
 
     draw: function () {
