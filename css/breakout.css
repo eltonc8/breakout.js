@@ -30,8 +30,30 @@ canvas {
 .title {
   position: relative;
   width: 100%;
-  font-size: 3em;
-  background-color: red;
+  font-size: 4em;
+}
+
+ .title:after {
+  position: absolute;
+  content: " ";
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-image: url(http://res.cloudinary.com/dwlxp9sf7/image/upload/c_crop,g_north,h_260,w_1053/v1440828472/2601660-11002901_lfptyh.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color: rgba(128, 0, 0, 0.7);
+  border-top: 0.2em solid;
+  border-bottom: 0.2em solid;
+  border-color: rgba(128, 0, 0, 0.2);
+  transition: height 2s, background-color 2s;
+}
+
+.title.initialize:after {
+  height: 100vh;
+  background-color: rgba(128, 0, 0, 1);
 }
 
 .buttons {
