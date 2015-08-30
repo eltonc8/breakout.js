@@ -41,7 +41,7 @@
     },
 
     checkGameLogics: function () {
-      if (this.balls.size()) {
+      if (this.balls.size() || this.paddle.ball) {
         var deadBalls = _(this.balls.filter( function (ball) {
           return ball.y > canvas.height;
         }));
@@ -49,7 +49,7 @@
       } else if (this.lives) {
         this.runtimeOptions.accel = 1;
         this.lives--;
-        this.balls.push(new Breakout.CircularElement());
+        this.paddle.ball = (new Breakout.CircularElement());
       } else {
         return false;
       }
@@ -91,6 +91,8 @@
     keyDownCodeHandler: function (keyCode) {
       if  (keyCode === 68 || keyCode === 70) { //D or F
         this.speedModify(keyCode - 69);
+      } else if (keyCode === 32 && this.paddle.ball) {
+        this.releaseBall();
       } else {
         this.paddle.keyDownCodeHandler(keyCode);
       }
@@ -98,6 +100,12 @@
 
     keyUpCodeHandler: function (keyCode) {
       this.paddle.keyUpCodeHandler(keyCode);
+    },
+
+    releaseBall: function () {
+      this.paddle.ball.normalizeSpeed();
+      this.balls.push(this.paddle.ball);
+      this.paddle.ball = null;
     },
 
     removeItemsFrom: function (items, collection) {

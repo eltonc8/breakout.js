@@ -21,6 +21,20 @@
   Breakout.setInheritance(Paddle, RectElement);
 
   _.extend(Paddle.prototype, {
+    draw: function () {
+      debugger
+      this.superClass.draw.call(this);
+      if (this.ball) {
+        this.ball.draw();
+        new Breakout.CircularElement({
+          color: "#FF0",
+          radius: 3,
+          x: this.ball.x + this.ball.dx,
+          y: this.ball.y + this.ball.dy
+        }).draw();
+      }
+    },
+
     keyDownCodeHandler: function (keyCode) {
       // left keyCode === 37; right keyCode === 39
       if(keyCode === 37 || keyCode === 39) {
@@ -46,11 +60,19 @@
       this.x += this.dx * unit;
       this.x = Math.min(canvas.width - this.width, Math.max(0, this.x));
       this.checkWallCollision();
+      if (this.ball) {
+        this.ball.x = this.x + this.width / 2;
+        this.ball.y = this.y - this.ball.radius * 2;
+        var rad = new Date() * Math.PI / 2000;
+        rad = (Math.cos(rad)) * Math.PI / 4;
+        this.ball.dx = -Math.sin(rad) * 50;
+        this.ball.dy = -Math.cos(rad) * 50;
+      }
     },
 
     checkWallCollision: function () {
       if ( (this.dx < 0 && this.x <= 0) ||
-      (this.dx > 0 && this.x + this.width >= canvas.width) ) { this.dx = 0; }
+           (this.dx > 0 && this.x + this.width >= canvas.width) ) { this.dx = 0; }
     },
   });
 })();

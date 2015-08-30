@@ -8,8 +8,9 @@
       x: canvas.width / 2,
       y: canvas.height * 0.8,
       dx: 141,
-      dy: 141.8,
+      dy: 141,
       radius: 5,
+      color: "#F00"
     }, options);
     this.initialize(options);
   };
@@ -20,15 +21,16 @@
       this.y = options.y;
       this.dx = options.dx; //dx, dy are pixels per second
       this.dy = options.dy;
+      this.color = options.color;
       this.radius = options.radius;
       this.accel = -0.10;
-      this.speed = options.speed || Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+      this.speed = options.speed || 200;
     },
 
     draw: function () {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-      ctx.fillStyle = "#F00";
+      ctx.fillStyle = this.color;
       ctx.fill();
       ctx.closePath();
     },
@@ -80,10 +82,7 @@
         this.dy += my * 0.2;
       }
 
-      // 6] this "normalize" the vector back to original speed.
-      var factor = this.speed / Math.sqrt(this.dx * this.dx + this.dy * this.dy);
-      this.dx = this.dx * factor;
-      this.dy = this.dy * factor;
+      this.normalizeSpeed();
     },
 
     move: function (runtimeOptions) {
@@ -93,9 +92,10 @@
       this.checkWallCollision();
     },
 
-    frame: function (options) {
-      this.draw();
-      this.move( (options && options.time) || 50 );
+    normalizeSpeed: function (options) {
+      var factor = this.speed / Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+      this.dx = this.dx * factor;
+      this.dy = this.dy * factor;
     }
   });
 })();

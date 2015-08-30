@@ -8,5 +8,7 @@
     Surrogate.prototype = parentClass.prototype;
     childClass.prototype = new Surrogate();
     childClass.prototype.constructor = childClass;
+    childClass.prototype.superClass = childClass.prototype.__proto__;
   };
+
 })();
