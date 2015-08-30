@@ -3,7 +3,7 @@
     window.Breakout = {};
   }
 
-  /*
+  /**
   * by default, time is measured in ms.
   *  for readability reasons, speed is in pixel per s, and,
   *  this code will utilize time / 1000
@@ -48,6 +48,7 @@
       if (this.balls.size() && this.lives) {
         return false;
       } else if (this.lives) {
+        this.runtimeOptions.accel = 1;
         this.lives--;
         this.balls.push(new Breakout.CircularElement());
       }
@@ -80,6 +81,10 @@
       ctx.fillStyle = "#FF0";
       ctx.fillText("Score: "+ this.score, 8, 20);
       ctx.fillText("Lives: "+ this.lives, 100, 20);
+      if (this.runtimeOptions.accel !== 1) {
+        var factor = (this.runtimeOptions.accel).toFixed(2);
+        ctx.fillText("Accelerated by: " + factor + "x" , 225, 20);
+      }
     },
 
     keyDownHandler: function (event) {
@@ -129,8 +134,8 @@
 
     speedModify: function (val) {
       //should accept only +1 / -1
-      var modification = ( 4 + val ) / 4;
-      this.runtimeOptions.accel = (this.runtimeOptions.accel * modification);
+      var modification = val / 4;
+      this.runtimeOptions.accel = (this.runtimeOptions.accel + modification);
       this.runtimeOptions.accel = Math.max(1, Math.min(2, this.runtimeOptions.accel));
     },
   });
