@@ -34,15 +34,16 @@
     newGame: function () {
       if (this.game) { this.game.runDeactivate(); }
       this.game = new Breakout.Game({});
+      this.pauseToggle(true, true);
     },
 
-    pauseToggle: function (event) {
-      if ($(".pause-toggle").html() == "Pause [P]") {
-        $(".pause-toggle").html("Resume [P]");
-        this.game.runDeactivate();
-      } else {
+    pauseToggle: function (event, reset) {
+      if (reset || $(".pause-toggle").html() == "Resume [P]") {
         $(".pause-toggle").html("Pause [P]");
         this.game.runActivate();
+      } else {
+        $(".pause-toggle").html("Resume [P]");
+        this.game.runDeactivate();
       }
     },
 

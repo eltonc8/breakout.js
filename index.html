@@ -9,26 +9,27 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" media="all" href="css/breakout.css">
 </head>
-  <div class="title initialize">
-    Breakout!
-  </div>
-  <div class='content'>
-    <div class="container">
-      <body>
-        <div class="info">
-          <div class="intro"></div>
-        </div>
+<div class="title initialize">
+  Breakout!
+</div>
+<div class='content'>
+  <div class="container">
+    <body>
+      <div class="info">
+        <div class="intro"></div>
+      </div>
     </div>
     <div class="container">
       <canvas id="breakout" width="600" height="400"></canvas>
     </div>
-    <div class="container">
-      <div class="buttons">
-        <div class="new-game">New Game [N]</div>
-        <div class="pause-toggle">Pause [P]</div>
-        <div class="power-up-toggle">Include Power-Ups!</div>
-        <div class="speed-toggle half-toggle">Slow Down! [D]</div>
-        <div class="speed-toggle half-toggle">Faster! [F]</div>
+    <div class="container buttons">
+      <div class="btn new-game">New Game [N]</div>
+      <div class="btn pause-toggle">Pause [P]</div>
+      <div class="btn power-up-toggle">Include Power-Ups!</div>
+      <div class="half">
+        <div class="btn speed-toggle slow-down" data-value="68">Slow Down! [D]</div>
+        <div class="btn speed-toggle speed-up" data-value="70">Faster! [F]</div>
+      </div>
       </div>
     </div>
   </div>

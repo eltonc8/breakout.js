@@ -68,50 +68,79 @@ canvas {
 }
 
 .content {
-  margin-top: 2em;
-  padding: 2em;
+  margin-top: 20px;
+  padding: 20px;
+  min-width: 600px;
+  max-width: 1800px;
+  display: inline-block;
+  margin: auto;
 }
 
 .container {
-  margin: auto;
+  float: left;
   display: inline-block;
 }
 
 .buttons {
-  width: 12em;
+  width: 280px;
+  margin: 10px;
+  align-content: center;
 }
 
 .buttons > * {
   width: 96%;
   margin: 2%;
+  display: inline-block;
+  border: 0;
+  float: left;
+}
+
+.buttons .btn {
+  padding: 3%;
+  border-radius: 1vh;
   font-size: 1rem;
   color: #FFF;
-  padding: 0.5em;
-  display: block;
-  float: left;
-  radius: 0.25em;
   box-shadow: 0 4px 0 #000;
 }
 
+.buttons .half .btn {
+  width: 49%;
+  margin: 0;
+  float: left;
+}
 
-.buttons > *:hover {
+.buttons .btn.slow-down {
+  background: #E00;
+  padding-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.buttons .btn.speed-up {
+  background: #395;
+  padding-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.buttons .btn:hover {
   position:relative;
   top: 2px;
   box-shadow: 0 2px 0 #000,
 }
 
-.buttons > *:active {
+.buttons .btn:active {
   position:relative;
   top: 4px;
   box-shadow: 0 0px 0 #000,
 }
 
 .new-game {
-  background: #395;
+  background: #CC0;
 }
 
 .pause-toggle {
-  background: #CC0;
+  background: #BBB;
 }
 
 .power-up-toggle {
