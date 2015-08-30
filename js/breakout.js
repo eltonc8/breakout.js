@@ -87,16 +87,16 @@
       }
     },
 
-    keyDownHandler: function (event) {
-      if  (event.keyCode === 68 || event.keyCode === 70) { //D or F
-        this.speedModify(event.keyCode - 69);
+    keyDownCodeHandler: function (keyCode) {
+      if  (keyCode === 68 || keyCode === 70) { //D or F
+        this.speedModify(keyCode - 69);
       } else {
-        this.paddle.keyDownHandler(event);
+        this.paddle.keyDownCodeHandler(keyCode);
       }
     },
 
-    keyUpHandler: function (event) {
-      this.paddle.keyUpHandler(event);
+    keyUpCodeHandler: function (keyCode) {
+      this.paddle.keyUpCodeHandler(keyCode);
     },
 
     removeItemsFrom: function (items, collection) {

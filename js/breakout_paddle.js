@@ -21,14 +21,14 @@
   Breakout.setInheritance(Paddle, RectElement);
 
   _.extend(Paddle.prototype, {
-    keyDownHandler: function (event) {
+    keyDownCodeHandler: function (keyCode) {
       // left keyCode === 37; right keyCode === 39
-      if(event.keyCode === 37 || event.keyCode === 39) {
-        this.thrust = event.keyCode - 38;
+      if(keyCode === 37 || keyCode === 39) {
+        this.thrust = keyCode - 38;
       }
     },
 
-    keyUpHandler: function (event) {
+    keyUpCodeHandler: function (keyCode) {
       this.thrust = 0;
     },
 

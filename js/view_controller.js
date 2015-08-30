@@ -4,9 +4,7 @@
   }
 
   Breakout.View = function () {
-    $(".new-game"       ).on("click", this.newGame.bind(this));
-    $(".pause-toggle"   ).on("click", this.pauseToggle.bind(this));
-    $(".power-up-toggle").on("click", this.powerUpToggle.bind(this));
+    $(".buttons").delegate(".btn", "click", this.keyDownHandler.bind(this));
 
     jQuery(document).on("keydown", this.keyDownHandler.bind(this));
     jQuery(document).on("keyup", this.keyUpHandler.bind(this));
@@ -18,17 +16,19 @@
     //these two key handlers exists on the top view to avoid repeated creation
     // of new key handlers in new games.
     keyDownHandler: function (event) {
-      if (event.keyCode === 78) { //N
+      var keyDownCode = event.keyCode || +event.currentTarget.getAttribute("data-key-code");
+      if (keyDownCode === 78) { //N
         this.newGame();
-      } else if (event.keyCode === 80) { //P
+      } else if (keyDownCode === 80) { //P
         this.pauseToggle();
       } else {
-        this.game && this.game.keyDownHandler(event);
+        this.game && this.game.keyDownCodeHandler(keyDownCode);
       }
     },
 
     keyUpHandler: function (event) {
-      this.game && this.game.keyUpHandler(event);
+      var keyUpCode = event.keyCode
+      this.game && this.game.keyUpCodeHandler(keyUpCode);
     },
 
     newGame: function () {
