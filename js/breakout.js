@@ -16,6 +16,7 @@
       bricks: new Breakout.BrickField(),
       balls: _([]),
       score: 0,
+      level: 1,
     }, options);
 
     this.lives = options.lives;
@@ -28,7 +29,7 @@
       render: 0,
       renderRatio: 3,
       accel: 1,
-      difficulty: 0.9,
+      difficulty: options.difficulty || 0.9,
     };
     this.runActivate();
   };
@@ -40,17 +41,17 @@
     },
 
     checkGameLogics: function () {
-      var deadBalls = _(this.balls.filter( function (ball) {
-        return ball.y > canvas.height;
-      }));
-      this.removeItemsFrom(deadBalls, this.balls);
-
-      if (this.balls.size() && this.lives) {
-        return false;
+      if (this.balls.size()) {
+        var deadBalls = _(this.balls.filter( function (ball) {
+          return ball.y > canvas.height;
+        }));
+        this.removeItemsFrom(deadBalls, this.balls);
       } else if (this.lives) {
         this.runtimeOptions.accel = 1;
         this.lives--;
         this.balls.push(new Breakout.CircularElement());
+      } else {
+        return false;
       }
 
       return true;
@@ -113,16 +114,20 @@
         var brokenBricks = _(this.bricks.filter( function (brick) {
           return brick.checkCollision(ball);
         }));
-        this.score += brokenBricks.size();
-        this.removeItemsFrom(brokenBricks, this.bricks);
+        if (brokenBricks.size()) {
+          this.score += brokenBricks.size();
+          if (this.runtimeOptions.difficulty < 2.0) this.runtimeOptions.difficulty *= 1.01;
+          this.removeItemsFrom(brokenBricks, this.bricks);
+        }
       }.bind(this));
     },
 
     frame: function () {
-      this.move();
-      this.draw();
-      this.checkCollision();
-      this.checkGameLogics();
+      if (this.checkGameLogics()) {
+        this.move();
+        this.draw();
+        this.checkCollision();
+      }
     },
 
     move: function () {
