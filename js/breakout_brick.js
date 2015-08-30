@@ -47,13 +47,7 @@
       var red   = 255 / 2 * (1 + Math.cos( r * period ) );
       var green = 255 / 2 * (1 + Math.cos( r * period + Math.PI * 4 / 3) );
       var blue  = 255 / 2 * (1 + Math.cos( r * period + Math.PI * 2 / 3) );
-      options.color = "#" + this.hex(red) + this.hex(green) + this.hex(blue);
+      options.color = "#" + hex(red) + hex(green) + hex(blue);
     },
-
-    hex: function (num) {
-      var result = "00" + Number( Math.floor(num) ).toString(16);
-      return result.slice(-2)
-    },
-
   });
 })();

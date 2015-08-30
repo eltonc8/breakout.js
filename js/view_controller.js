@@ -6,6 +6,8 @@
   Breakout.View = function () {
     $(".buttons").delegate(".btn", "click", this.keyDownHandler.bind(this));
 
+    jQuery(document).mousemove(this.mouseMoveHandler.bind(this));
+    jQuery(canvas).on("mousedown", this.mouseClickHandler.bind(this));
     jQuery(document).on("keydown", this.keyDownHandler.bind(this));
     jQuery(document).on("keyup", this.keyUpHandler.bind(this));
 
@@ -17,6 +19,10 @@
     // of new key handlers in new games.
     keyDownHandler: function (event) {
       var keyDownCode = event.keyCode || +event.currentTarget.getAttribute("data-key-code");
+      if ([32, 37, 39].indexOf(keyDownCode) >= 0) { //spacebar, left & right arrows
+        event.stopPropagation();
+        event.preventDefault();
+      }
       if (keyDownCode === 78) { //N
         this.newGame();
       } else if (keyDownCode === 80) { //P
@@ -27,8 +33,23 @@
     },
 
     keyUpHandler: function (event) {
-      var keyUpCode = event.keyCode
+      var keyUpCode = event.keyCode;
       this.game && this.game.keyUpCodeHandler(keyUpCode);
+    },
+
+    mouseClickHandler: function (event) {
+      event.keyCode = 32;
+      this.keyDownHandler(event);
+    },
+
+    mouseMoveHandler: function (event) {
+      if ( !this.game ) return;
+      var relativeX = event.clientX - canvas.offsetLeft;
+      var relativeY = event.clientY - canvas.offsetTop;
+      if (relativeX > 0 && relativeX < canvas.width &&
+          relativeY > 0 && relativeY < canvas.height) {
+        this.game.mouseMoveHandler(relativeX);
+      }
     },
 
     newGame: function () {
