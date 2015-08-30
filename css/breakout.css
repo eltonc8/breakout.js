@@ -82,17 +82,17 @@ canvas {
 }
 
 .buttons > * {
-  width: 100%;
-  margin: 0.25em;
+  width: 96%;
+  margin: 2%;
   font-size: 1rem;
   color: #FFF;
   padding: 0.5em;
   display: block;
   float: left;
   radius: 0.25em;
-  box-shadow:
-    0 4px 0 #000;
+  box-shadow: 0 4px 0 #000;
 }
+
 
 .buttons > *:hover {
   position:relative;

@@ -23,22 +23,17 @@
     this.bricks = options.bricks;
     this.balls = options.balls;
     this.score = options.score;
-    this.activate();
-  };
-
-  _.extend(Breakout.Game.prototype, {
-    runtimeOptions: {
+    this.runtimeOptions = {
       ms: 1000/180,
       render: 0,
       renderRatio: 3,
       accel: 1,
       difficulty: 0.9,
-    },
+    };
+    this.runActivate();
+  };
 
-    activate: function () {
-      if (this.scheduler) return;
-      this.scheduler = setInterval( this.frame.bind(this), this.runtimeOptions.ms);
-    },
+  _.extend(Breakout.Game.prototype, {
 
     allObjects: function () {
       return _(this.bricks.concat(this.balls.flatten()).concat(this.paddle) );
@@ -60,7 +55,12 @@
       return true;
     },
 
-    deactivate: function () {
+    runActivate: function () {
+      if (this.scheduler) return;
+      this.scheduler = setInterval( this.frame.bind(this), this.runtimeOptions.ms);
+    },
+
+    runDeactivate: function () {
       clearInterval(this.scheduler);
       this.scheduler = null;
     },
@@ -83,7 +83,11 @@
     },
 
     keyDownHandler: function (event) {
-      this.paddle.keyDownHandler(event);
+      if  (event.keyCode === 68 || event.keyCode === 70) { //D or F
+        this.speedModify(event.keyCode - 69);
+      } else {
+        this.paddle.keyDownHandler(event);
+      }
     },
 
     keyUpHandler: function (event) {
@@ -121,6 +125,13 @@
       this.allObjects().each( function (obj) {
         obj.move(runtimeOptions);
       });
-    }
+    },
+
+    speedModify: function (val) {
+      //should accept only +1 / -1
+      var modification = ( 4 + val ) / 4;
+      this.runtimeOptions.accel = (this.runtimeOptions.accel * modification);
+      this.runtimeOptions.accel = Math.max(1, Math.min(2, this.runtimeOptions.accel));
+    },
   });
 })();
