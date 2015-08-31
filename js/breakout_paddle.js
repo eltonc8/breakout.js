@@ -47,6 +47,32 @@
       this.ball.dy = -Math.cos(rad);
     },
 
+    extendInitiate: function () {
+      var schedule = setInterval( this.extendPaddle.bind(this), 50 );
+      setTimeout( function () { clearInterval(schedule); }, 3100 );
+      setTimeout( this.extendInitiateReverse.bind(this), 60 * 1000);
+    },
+
+    extendInitiateReverse: function () {
+      var schedule = setInterval( this.extendPaddleReverse.bind(this), 50 );
+      setTimeout( function () { clearInterval(schedule); }, 3100 );
+      setTimeout( function () { clearInterval(schedule); }, 3100 );
+    },
+
+    extendPaddle: function () {
+      if (this.width <= 120) {
+        this.x -= 0.5;
+        this.width +=1;
+      }
+    },
+
+    extendPaddleReverse: function () {
+      if (this.width >= 60) {
+        this.x += 0.5;
+        this.width -=1;
+      }
+    },
+
     draw: function () {
       this.superClass.draw.call(this);
       if (this.ball) this.ballLaunchDraw();

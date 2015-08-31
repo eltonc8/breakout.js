@@ -20,9 +20,34 @@
 
   _.extend(PowerUp.prototype, {
     effect: function () {
-      return;
+      var value = ( this.fixed / Math.PI * 180 || this.degree || 0 ) + 60 ;
+      value /= 120;
+
+      switch ( Math.floor(value % 3) ) {
+        case 0:
+          return this._extraBall;
+        case 1:
+          return this._extraLife;
+        default:
+          return this._extendPaddle;
+      }
     },
-    
+
+    _extraBall: function () {
+      this.ballLoad();
+      setTimeout( this.ballFire.bind(this), 2000 );
+    },
+
+    _extraLife: function () {
+      this.lives += 1;
+    },
+
+    _extendPaddle: function () {
+      this.paddle.extendInitiate();
+    },
+
+    isPowerUp: true,
+
     powerUpEffect: function (brick) {
       this.degree = (this.degree + 1) % 360;
       this.tick = (this.tick + 1) % 4; //computation reduction
