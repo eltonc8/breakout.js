@@ -20,7 +20,8 @@
 
   _.extend(PowerUp.prototype, {
     effect: function () {
-      var value = ( this.fixed / Math.PI * 180 || this.degree || 0 ) + 60 ;
+      var value = ( this.fixed / Math.PI * 180 || this.degree || 0 ) + 60;
+      debugger
       value /= 120;
 
       switch ( Math.floor(value % 3) ) {
@@ -58,8 +59,8 @@
       if (this.fixed) radian = (Math.cos(radian)) * Math.PI/4 + this.fixed;
 
       red   = 255 / 2 * (1 + Math.cos( radian ) );
-      green = 255 / 2 * (1 + Math.cos( radian + Math.PI * 2/3) );
-      blue  = 255 / 2 * (1 + Math.cos( radian + Math.PI * 4/3) );
+      green = 255 / 2 * (1 + Math.cos( radian + Math.PI * 4/3) );
+      blue  = 255 / 2 * (1 + Math.cos( radian + Math.PI * 2/3) );
       brick.color = this.color = "#" + hex(red) + hex(green) + hex(blue);
     }
   });

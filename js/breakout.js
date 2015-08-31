@@ -51,6 +51,7 @@
         modBrick.addPowerUps({ degree: 120 * (i % 4) });
         this.bricks.unshift(modBrick);
       }
+      this.bricks = _(this.bricks);
     },
 
     ballFire: function () {
@@ -126,10 +127,24 @@
     },
 
     frame: function () {
-      if (this.checkGameLogics()) {
+      if ( !this.bricks.size() ) {
+        this.gameEnd(true);
+      } else if (this.checkGameLogics()) {
         this.move();
         this.draw();
         this.checkCollisions();
+      } else {
+        this.gameEnd();
+      }
+    },
+
+    gameEnd: function (won) {
+      ctx.font = "16px Arial";
+      ctx.fillStyle = new Date() / 1000 % 2 < 1 ? "#0F0" : "#F00";
+      if (won) {
+        ctx.fillText("YOU WON!", 260, 300);
+      } else {
+        ctx.fillText("GAME OVER", 250, 300);
       }
     },
 

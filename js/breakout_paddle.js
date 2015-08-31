@@ -91,8 +91,8 @@
     },
 
     _maxSpeed:            150000, //pixels / second: 150
-    _thrustCoefficient:     2500, //m / s / s
-    _dragCoefficient:       1000, //m / s / s
+    _thrustCoefficient:     2100, //m / s / s
+    _dragCoefficient:        800, //m / s / s
 
     move: function (runtimeOptions) {
       unit = runtimeOptions.ms * (runtimeOptions.accel) * (runtimeOptions.difficulty) / 1000;
