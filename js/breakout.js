@@ -15,33 +15,56 @@
       paddle: new Breakout.Paddle ({}),
       bricks: new Breakout.BrickField(),
       balls: _([]),
+      powerUps: _([]),
       score: 0,
       level: 1,
     }, options);
 
-    this.lives = options.lives;
-    this.paddle = options.paddle;
-    this.bricks = options.bricks;
-    this.balls = options.balls;
-    this.score = options.score;
-    this.runtimeOptions = {
-      ms: 1000/180,
-      render: 0,
-      renderRatio: 3,
-      accel: 1,
-      difficulty: options.difficulty || 0.9,
-    };
-    this.runActivate();
+    this.initialize(options);
   };
 
   _.extend(Breakout.Game.prototype, {
-    checkCollision: function () {
-      this.balls.each( function (ball) {
-        this.paddle.checkCollision(ball);
+    initialize: function (options) {
+      this.lives = options.lives;
+      this.paddle = options.paddle;
+      this.bricks = options.bricks;
+      this.balls = options.balls;
+      this.powerUps = options.powerUps;
+      this.score = options.score;
+      this.runtimeOptions = {
+        ms: 1000/180,
+        render: 0,
+        renderRatio: 3,
+        accel: 1,
+        difficulty: options.difficulty || 0.9,
+      };
+
+      this.addPowerUps();
+      this.runActivate();
+    },
+
+    addPowerUps: function () {
+      var modBrick, options;
+      this.bricks = this.bricks.shuffle();
+      for (i = 0; i < this.bricks.length / 20; i++) {
+        modBrick = this.bricks.pop();
+        modBrick.addPowerUps({ degree: 120 * (i % 4) });
+        this.bricks.unshift(modBrick);
+      }
+    },
+
+    checkCollisions: function () {
+      this._circularObjs().each( function (ball) {
+        if ( this.paddle.checkCollision(ball) ) {
+          this.ball.effect.call(this);
+        }
 
         var brokenBricks = _(this.bricks.filter( function (brick) {
-          return brick.checkCollision(ball);
-        }));
+          if (brick.checkCollision(ball)) {
+            if (brick.powerUp) this.powerUps.push(brick.powerUp);
+            return true;
+          }
+        }.bind(this)));
         if (brokenBricks.size()) {
           this.score += brokenBricks.size();
           if (this.runtimeOptions.difficulty < 2.0) this.runtimeOptions.difficulty *= 1.01;
@@ -92,7 +115,7 @@
       if (this.checkGameLogics()) {
         this.move();
         this.draw();
-        this.checkCollision();
+        this.checkCollisions();
       }
     },
 
@@ -152,7 +175,11 @@
     },
 
     _allObjects: function () {
-      return _(this.bricks.concat(this.balls.flatten()).concat(this.paddle) );
+      return _( this.bricks.concat(this.paddle).concat(this._circularObjs().flatten()) );
+    },
+
+    _circularObjs: function () {
+      return _( this.balls.concat(this.powerUps.flatten()) );
     },
   });
 })();

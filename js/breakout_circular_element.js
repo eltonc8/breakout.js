@@ -50,7 +50,10 @@
 
       var dd = Math.sqrt( dx * dx + dy * dy );
       if ( dd < ball.radius ) {
-        ball.collide(dx, dy, this.dx || 0, this.dy || (!dx && !dy && -10) || 0 );
+        dx /= 2;
+        dy /= 2;
+        ball.collide( dx,  dy, this.dx || 0, this.dy || (!dx && !dy && -10) || 0 );
+        this.collide(-dx, -dy, this.dx || 0, this.dy || (!dx && !dy && -10) || 0 );
         return true;
       }
     },
@@ -83,6 +86,10 @@
       }
 
       this.normalizeSpeed();
+    },
+
+    effect: function () {
+      return;
     },
 
     move: function (runtimeOptions) {

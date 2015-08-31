@@ -12,7 +12,18 @@
 
   Breakout.setInheritance(Brick, RectElement);
 
-  _.extend(Brick.prototype, {});
+  _.extend(Brick.prototype, {
+    addPowerUps: function (options) {
+      options.x = this.x + this.width/2;
+      options.y = this.y + this.height/2;
+      this.powerUp = new Breakout.PowerUp(options);
+    },
+
+    draw: function () {
+      if (this.powerUp) this.powerUp.powerUpEffect(this);
+      this.superClass.draw.call(this);
+    },
+  });
 
   BrickField = Breakout.BrickField = function (options) {
     options = _.extend({

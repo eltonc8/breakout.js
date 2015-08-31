@@ -24,6 +24,7 @@ body:before {
 }
 
 canvas {
+  cursor: ew-resize;
   background: #000;
   display: block;
   margin: auto auto;
@@ -47,10 +48,10 @@ canvas {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top;
-  background-color: rgba(128, 0, 0, 0.7);
+  background-color: rgba(128, 0, 0, 0.9);
   border-top: 0.2em solid;
   border-bottom: 0.2em solid;
-  border-color: rgba(128, 128, 128, 0.2);
+  border-color: rgba(128, 128, 128, 0.3);
   transition:
     height 2s ease-in-out,
     background-color 2s,
@@ -65,7 +66,7 @@ canvas {
 
 .content {
   margin-top: 60px;
-  padding: 40px;
+  padding-top: 40px;
   min-width: 600px;
   max-width: 1800px;
   display: inline-block;
@@ -99,6 +100,7 @@ canvas {
 }
 
 .buttons .btn {
+  cursor: pointer;
   position:relative;
   padding: 3% 0;
   border-radius: 2vh;

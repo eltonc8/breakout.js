@@ -5,9 +5,9 @@
 
   Breakout.View = function () {
     $(".buttons").delegate(".btn", "click", this.keyDownHandler.bind(this));
+    jQuery(canvas).on("mousedown", this.mouseClickHandler.bind(this));
 
     jQuery(document).mousemove(this.mouseMoveHandler.bind(this));
-    jQuery(canvas).on("mousedown", this.mouseClickHandler.bind(this));
     jQuery(document).on("keydown", this.keyDownHandler.bind(this));
     jQuery(document).on("keyup", this.keyUpHandler.bind(this));
 
