@@ -5,15 +5,16 @@ An implementation of the classic Breakout game, built on Javascript, HTML5 canva
 - [live demo](https://eltonc88.github.io/breakout.js)
 - [inspiration](https://en.wikipedia.org/wiki/Breakout_(video_game))
 
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/image.png)
 
 ### Highlights:
 
 * Game is implemented with physics-engine to provide a rich experience.
-* Paddle has smooth acceleration and deceleration, with two methods to contro:
+* Paddle has smooth acceleration and deceleration, with two control methods:
   * Left/right buttons.
   * Mouse control
 * Paddle can impart momentum onto the ball based on the speed of the paddle.
-* Ball-object collisions are calculated with vector algebra, resulting in realistic reflections at the corner.
+* Ball-object collisions are calculated with vector algebra, resulting in realistic reflections at the corners.
 * Game mechanics are optimized for user experience, calculated at 3x graphics refresh rate to improve calculation accuracy.
 * Underlying code is beautifully organized into subclasses and reused, providing DRY and effective code.
 
