@@ -21,7 +21,6 @@
   _.extend(PowerUp.prototype, {
     effect: function () {
       var value = ( this.fixed / Math.PI * 180 || this.degree || 0 ) + 60;
-      debugger
       value /= 120;
 
       switch ( Math.floor(value % 3) ) {
