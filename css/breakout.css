@@ -85,8 +85,8 @@ canvas {
 }
 
 [id^=tab]:checked ~ div[id^=tab-content] {
-  display: block;
-  shadow: 10px;
+  opacity: 1;
+  z-index: 1;
 }
 
 .tabs {
@@ -94,10 +94,9 @@ canvas {
   margin-top: 15px;
   float: left;
   width: 280px;
-  list-style: none;
 }
 
-.tabs li {
+.tabs > div {
   display: block;
   width: 280px;
 }
@@ -119,11 +118,23 @@ canvas {
   cursor: pointer;
 }
 
+.tab-contents {
+  position: relative;
+  width: 240px;
+  height: 480px;
+}
+
 .tab-content {
-  display: none;
+  opacity: 0;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
   padding: 15px;
   width: 240px;
   border-radius: 0 0 2vh 2vh;
+  transition: opacity 1s ease-out;
+  box-shadow: 0 4px 0 #000;
 }
 
 .about {
@@ -141,7 +152,7 @@ canvas {
 .buttons {
   cursor: pointer;
   display: block;
-  float: left;
+  float: right;
   width: 280px;
   margin: 10px;
   align-content: center;
@@ -152,7 +163,7 @@ canvas {
   margin: 5px 0;
   display: inline-block;
   border: 0;
-  float: left;
+  float: right;
 }
 
 .buttons .btn {

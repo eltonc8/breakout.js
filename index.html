@@ -18,34 +18,36 @@
       <canvas id="breakout" width="600" height="400"></canvas>
     </div>
     <div class="container">
-      <ul class="tabs">
-        <li class="labels">
+      <div class="tabs">
+        <div class="labels">
           <label class="about" for="tab1" id="label1">tab 1</label>
           <label class="control" for="tab2" id="label2">tab 2</label>
           <label class="details" for="tab3" id="label3">tab 3</label>
-        </li>
-        <li>
-          <input type="radio" checked name="tabs" id="tab1">
-          <div id="tab-content1" class="tab-content about">
-            <h3>Tab 1</h3>
-            <!-- Your Content Here -->
+        </div>
+        <div class="tab-contents">
+          <div>
+            <input type="radio" checked name="tabs" id="tab1">
+            <div id="tab-content1" class="tab-content about">
+              <h3>Tab 1</h3>
+              <!-- Your Content Here -->
+            </div>
           </div>
-        </li>
-        <li>
-          <input type="radio" name="tabs" id="tab2">
-          <div id="tab-content2" class="tab-content control">
-            <h3>Tab 2</h3>
-            <!-- Your Content Here -->
+          <div>
+            <input type="radio" name="tabs" id="tab2">
+            <div id="tab-content2" class="tab-content control">
+              <h3>Tab 2</h3>
+              <!-- Your Content Here -->
+            </div>
           </div>
-        </li>
-        <li>
-          <input type="radio" name="tabs" id="tab3">
-          <div id="tab-content3" class="tab-content details">
-            <h3>Tab 3</h3>
-            <!-- Your Content Here -->
+          <div>
+            <input type="radio" name="tabs" id="tab3">
+            <div id="tab-content3" class="tab-content details">
+              <h3>Tab 3</h3>
+              <!-- Your Content Here -->
+            </div>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
       <div class="buttons">
         <div class="btn new-game" data-key-code="78">New Game [N]</div>
         <div class="btn pause-toggle" data-key-code="80">Pause [P]</div>
