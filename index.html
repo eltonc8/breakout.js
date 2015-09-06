@@ -41,8 +41,8 @@
               <img class="launch" src="https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/ball_launch.png">
               <h3>Movements</h3>
               Use arrow keys or mouse to direct the paddle<br>
-              <img class="arrow" src="https://raw.githubusercontent.com/eltonc88/breakout.js/master/glyphicons/left_arrow.png">
-              <img class="arrow" src="https://raw.githubusercontent.com/eltonc88/breakout.js/master/glyphicons/right_arrow.png">
+              <img class="arrow" src="https://raw.githubusercontent.com/eltonc88/breakout.js/master/glyphicons/left-arrow.png">
+              <img class="arrow" src="https://raw.githubusercontent.com/eltonc88/breakout.js/master/glyphicons/right-arrow.png">
             </div>
           </div>
           <div>
@@ -77,11 +77,13 @@
   <script src="js/breakout_brick.js"></script>
   <script src="js/breakout.js"></script>
   <script src="js/view_controller.js"></script>
+  <script src="js/tabs_controller.js"></script>
   <script>
   $(function () {
     window.canvas = $("#breakout")[0];
     window.ctx = canvas.getContext("2d");
     window.view = new Breakout.View();
+    window.tabs = new Breakout.Tabs();
     setTimeout(function () { $(".initialize").removeClass("initialize") }, 1000);
   });
   </script>
