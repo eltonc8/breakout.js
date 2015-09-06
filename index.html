@@ -20,30 +20,39 @@
     <div class="container">
       <div class="tabs">
         <div class="labels">
-          <label class="about" for="tab1" id="label1">tab 1</label>
-          <label class="control" for="tab2" id="label2">tab 2</label>
-          <label class="details" for="tab3" id="label3">tab 3</label>
+          <label class="about" for="tab1" id="label1">About</label>
+          <label class="control" for="tab2" id="label2">Controls</label>
+          <label class="details" for="tab3" id="label3">Details</label>
         </div>
         <div class="tab-contents">
           <div>
             <input type="radio" checked name="tabs" id="tab1">
             <div id="tab-content1" class="tab-content about">
-              <h3>Tab 1</h3>
-              <!-- Your Content Here -->
+              <h3>BreakOut</h3>
+              A classic arcade game first released in 1976.
+              <img src="https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/flyer.png">
             </div>
           </div>
           <div>
             <input type="radio" name="tabs" id="tab2">
             <div id="tab-content2" class="tab-content control">
-              <h3>Tab 2</h3>
-              <!-- Your Content Here -->
+              <h3>Ball Launch</h3>
+              Press [space] or [click] with mouse to launch ball in the direction of green dots.
+              <img class="launch" src="https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/ball_launch.png">
+              <h3>Movements</h3>
+              Use arrow keys or mouse to direct the paddle<br>
+              <img class="arrow" src="https://raw.githubusercontent.com/eltonc88/breakout.js/master/glyphicons/left_arrow.png">
+              <img class="arrow" src="https://raw.githubusercontent.com/eltonc88/breakout.js/master/glyphicons/right_arrow.png">
             </div>
           </div>
           <div>
             <input type="radio" name="tabs" id="tab3">
             <div id="tab-content3" class="tab-content details">
-              <h3>Tab 3</h3>
-              <!-- Your Content Here -->
+              <h3>PowerUps</h3>
+              <p>Red: gives you an extra ball. Automatically launched in two seconds!</p>
+              <p>Green: gives you an extra life!</p>
+              <p>Blue: Doubles your paddle's width for two minutes!</p>
+              <p>Wildcard: Hit the brick at the right moment to get one of the above!</p>
             </div>
           </div>
         </div>

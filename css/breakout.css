@@ -6,7 +6,7 @@
 
 body {
   text-align: center;
-  background-image: url(http://res.cloudinary.com/dwlxp9sf7/image/upload/c_scale,w_1500/v1440714233/brick_texture3355_uqdgn2.jpg);
+  background-image: url(https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/background.jpg);
   background-size: cover;
 }
 
@@ -44,7 +44,7 @@ canvas {
   height: 100%;
   width: 100%;
   z-index: 100;
-  background-image: url(http://res.cloudinary.com/dwlxp9sf7/image/upload/c_crop,g_north,h_260,w_1053/v1440828472/2601660-11002901_lfptyh.jpg);
+  background-image: url(https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/header.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: top;
@@ -121,7 +121,7 @@ canvas {
 .tab-contents {
   position: relative;
   width: 240px;
-  height: 480px;
+  height: 300px;
 }
 
 .tab-content {
@@ -130,8 +130,10 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
   padding: 15px;
   width: 240px;
+  overflow-y: scroll;
   border-radius: 0 0 2vh 2vh;
   transition: opacity 1s ease-out;
   box-shadow: 0 4px 0 #000;
@@ -139,10 +141,31 @@ canvas {
 
 .about {
   background-color: #C83828;
+  text-align: left;
+}
+
+.about img {
+  display: block;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .control {
   background-color: #389848;
+}
+
+.control img.launch {
+  display: block;
+  margin: 5px;
+  width: auto;
+  height: 60px;
+}
+
+.control img.arrow {
+  display: inline-block;
+  margin: 5px;
+  width: auto;
+  height: 10px;
 }
 
 .details {
