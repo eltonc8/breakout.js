@@ -140,7 +140,7 @@ canvas {
 }
 
 .about {
-  background-color: #C83828;
+  background-color: #B83828;
   text-align: left;
 }
 
@@ -168,8 +168,8 @@ canvas {
   height: 10px;
 }
 
-.details {
-  background-color: #989848;
+.powerup {
+  background-color: #386888;
 }
 
 /* buttons CSS */
