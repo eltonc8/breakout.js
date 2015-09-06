@@ -17,17 +17,32 @@ An implementation of the classic Breakout game, built on Javascript, HTML5 canva
 * Ball-object collisions are calculated with vector algebra, resulting in realistic reflections at the corners.
 * Game mechanics are optimized for user experience, calculated at 3x graphics refresh rate to improve calculation accuracy.
 * Underlying code is beautifully organized into subclasses and reused, providing DRY and effective code.
+* Power-ups add to the game experience.
 
+## Power-up
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/powerup_extraball.gif)
+Red: gives you an extra ball. Automatically launched in two seconds!
+
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/powerup_extralife.gif)
+Green: gives you an extra life!
+
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/powerup_longpaddle.gif)
+Blue: Doubles your paddle's width for two minutes!
+
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/powerup_wildcard.gif)
+Wildcard: Hit the brick at the right moment to get one of the above!
 
 ## Physics-engine
 
 ### Paddle
+![Paddle launch](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/paddle_launch.gif)
+
 The position of the paddle is calculated based on acceleration per unit time (v = at). As a result, user experience smooth and continuous movements of the paddle, providing realistic but at-times-challenging feeling of momentum.
 
 The mouse provides an intuitive method to control the paddle. While the game limits maximum acceleration and speed, calculations are made for the user to decelerate the paddle to the position of the mouse. However, the user can also use the arrow keys for a greater challenge.
 
 ### Ball
-The ball intuitively responds to paddle and bricks in two ways. Empowered by thoughtful equations, the game provides a rich environment where the user and game elements can interact in a responsive environment where minute details matter.
+The ball intuitively responds to paddle and bricks in two ways. Empowered by thoughtful equations, the game provides an engaging environment where the user and game elements can interact in a responsive environment where minute details matter.
 
 #### Corner bounces
 Ball bounces at the corners provide an interesting and at-times challenging experience. The physics-engine provides realistic experience by calculating the normal at which a ball strikes a corner or a surface. Fitting usage of vector and dot product allow the game to model real-life physics.

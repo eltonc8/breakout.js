@@ -13,7 +13,7 @@ body {
 body:before {
   z-index: -1;
   content: "";
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   position: absolute;
   top: 0;
   left: 0;
@@ -171,6 +171,8 @@ canvas {
 .details {
   background-color: #989848;
 }
+
+/* buttons CSS */
 
 .buttons {
   cursor: pointer;
