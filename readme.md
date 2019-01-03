@@ -2,10 +2,10 @@
 
 An implementation of the classic Breakout game, built on Javascript, HTML5 canvas, and jQuery with Underscore.js library.
 
-- [live demo](https://eltonc88.github.io/breakout.js)
+- [live demo](https://eltonc8.github.io/breakout.js)
 - [inspiration](https://en.wikipedia.org/wiki/Breakout_(video_game))
 
-![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/image.png)
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc8/breakout.js/master/img/image.png)
 
 ### Highlights:
 
@@ -20,22 +20,22 @@ An implementation of the classic Breakout game, built on Javascript, HTML5 canva
 * Power-ups add to the game experience.
 
 ## Power-up
-![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/powerup_extraball.gif)
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc8/breakout.js/master/img/powerup_extraball.gif)
 Red: gives you an extra ball. Automatically launched in two seconds!
 
-![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/powerup_extralife.gif)
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc8/breakout.js/master/img/powerup_extralife.gif)
 Green: gives you an extra life!
 
-![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/powerup_longpaddle.gif)
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc8/breakout.js/master/img/powerup_longpaddle.gif)
 Blue: Doubles your paddle's width for two minutes!
 
-![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/powerup_wildcard.gif)
+![Elton's Breakout.js](https://raw.githubusercontent.com/eltonc8/breakout.js/master/img/powerup_wildcard.gif)
 Wildcard: Hit the brick at the right moment to get one of the above!
 
 ## Physics-engine
 
 ### Paddle
-![Paddle launch](https://raw.githubusercontent.com/eltonc88/breakout.js/master/img/paddle_launch.gif)
+![Paddle launch](https://raw.githubusercontent.com/eltonc8/breakout.js/master/img/paddle_launch.gif)
 
 The position of the paddle is calculated based on acceleration per unit time (v = at). As a result, user experience smooth and continuous movements of the paddle, providing realistic but at-times-challenging feeling of momentum.
 
